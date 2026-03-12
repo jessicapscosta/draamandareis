@@ -6,44 +6,120 @@
   <meta name="robots" content="noindex, nofollow"/>
   <title>Painel Admin — Amanda Reis</title>
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --dark: #2D061B; --dark2: #3d0b27;
       --bege: #E0CCC7; --light: #F3EFEC; --muted: #5C4B57;
-      --sidebar: 240px; --green: #27ae60; --red: #e74c3c;
+      --sidebar: 240px;
+      --green: #2ecc71; --red: #e74c3c; --yellow: #f39c12;
     }
     body { font-family: 'Poppins', sans-serif; background: #f7f4f2; color: #222; min-height: 100vh; display: flex; }
-    .sidebar { width: var(--sidebar); background: var(--dark); min-height: 100vh; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; }
-    .sidebar-logo { padding: 1.5rem 1.2rem 1rem; border-bottom: 1px solid rgba(224,204,199,.1); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar); background: var(--dark); min-height: 100vh;
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 1.5rem 1.2rem 1rem;
+      border-bottom: 1px solid rgba(224,204,199,.1);
+    }
     .sidebar-logo img { height: 36px; }
-    .sidebar-label { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(224,204,199,.35); padding: 1.2rem 1.2rem .5rem; }
-    .nav-item { display: flex; align-items: center; gap: .75rem; padding: .75rem 1.2rem; cursor: pointer; font-size: .82rem; font-weight: 500; color: rgba(224,204,199,.6); border-left: 3px solid transparent; transition: all .25s; text-decoration: none; }
+    .sidebar-label {
+      font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(224,204,199,.35); padding: 1.2rem 1.2rem .5rem;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .75rem 1.2rem; cursor: pointer;
+      font-size: .82rem; font-weight: 500; color: rgba(224,204,199,.6);
+      border-left: 3px solid transparent;
+      transition: all .25s; text-decoration: none;
+    }
     .nav-item svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
     .nav-item:hover { color: var(--bege); background: rgba(224,204,199,.06); }
     .nav-item.active { color: var(--bege); border-left-color: var(--bege); background: rgba(224,204,199,.08); }
-    .sidebar-footer { margin-top: auto; padding: 1rem 1.2rem; border-top: 1px solid rgba(224,204,199,.1); }
-    .btn-sair { display: flex; align-items: center; gap: .6rem; font-size: .75rem; color: rgba(224,204,199,.4); cursor: pointer; background: none; border: none; font-family: 'Poppins', sans-serif; transition: color .3s; }
+    .sidebar-footer {
+      margin-top: auto; padding: 1rem 1.2rem;
+      border-top: 1px solid rgba(224,204,199,.1);
+    }
+    .btn-sair {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .75rem; color: rgba(224,204,199,.4); cursor: pointer;
+      background: none; border: none; font-family: 'Poppins', sans-serif;
+      transition: color .3s; padding: 0;
+    }
     .btn-sair:hover { color: rgba(224,204,199,.8); }
     .btn-sair svg { width: 14px; height: 14px; fill: currentColor; }
-    .main { margin-left: var(--sidebar); flex: 1; }
-    .topbar { background: #fff; border-bottom: 1px solid rgba(45,6,27,.08); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+
+    /* ── MAIN ── */
+    .main { margin-left: var(--sidebar); flex: 1; min-height: 100vh; }
+    .topbar {
+      background: #fff; border-bottom: 1px solid rgba(45,6,27,.08);
+      padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
     .topbar h1 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
     .topbar-sub { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
-    .badge-live { display: inline-flex; align-items: center; gap: .4rem; background: rgba(46,204,113,.1); color: #27ae60; border: 1px solid rgba(46,204,113,.3); border-radius: 50px; padding: .3rem .8rem; font-size: .7rem; font-weight: 700; }
-    .badge-live::before { content:''; width:6px; height:6px; background:#27ae60; border-radius:50%; }
+    .badge-live {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(46,204,113,.1); color: #27ae60;
+      border: 1px solid rgba(46,204,113,.3); border-radius: 50px;
+      padding: .3rem .8rem; font-size: .7rem; font-weight: 700;
+    }
+    .badge-live::before { content: ''; width: 6px; height: 6px; background: #27ae60; border-radius: 50%; }
     .content { padding: 2rem; }
+
+    /* ── TABS ── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; margin-bottom: 2rem; }
-    .stat-card { background: #fff; border-radius: 14px; padding: 1.4rem; border: 1px solid rgba(45,6,27,.07); }
-    .stat-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
-    .stat-val { font-size: 2rem; font-weight: 800; color: var(--dark); line-height: 1; }
-    .stat-sub { font-size: .72rem; color: var(--muted); margin-top: .3rem; }
-    .card { background: #fff; border-radius: 14px; padding: 1.5rem; border: 1px solid rgba(45,6,27,.07); margin-bottom: 1.5rem; }
-    .card-title { font-size: .9rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
-    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.3rem; border-radius: 50px; font-family: 'Poppins',sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; border: none; transition: all .25s; text-decoration: none; }
+
+    /* ── CARDS STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+    .stat-card {
+      background: #fff; border-radius: 14px; padding: 1.4rem;
+      border: 1px solid rgba(45,6,27,.07);
+    }
+    .stat-card-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+    .stat-card-val { font-size: 2rem; font-weight: 800; color: var(--dark); line-height: 1; }
+    .stat-card-sub { font-size: .72rem; color: var(--muted); margin-top: .3rem; }
+    .stat-card-icon { float: right; width: 36px; height: 36px; background: var(--light); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-top: -2.5rem; }
+    .stat-card-icon svg { width: 18px; height: 18px; fill: var(--muted); }
+
+    /* ── ANALYTICS EMBED ── */
+    .analytics-card {
+      background: #fff; border-radius: 14px; padding: 1.5rem;
+      border: 1px solid rgba(45,6,27,.07); margin-bottom: 1.5rem;
+    }
+    .analytics-card h3 { font-size: .85rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+    .analytics-placeholder {
+      background: var(--light); border-radius: 10px; padding: 2rem;
+      text-align: center; border: 2px dashed rgba(45,6,27,.1);
+    }
+    .analytics-placeholder p { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+    .analytics-placeholder a { color: var(--dark); font-weight: 600; }
+    .analytics-id-form { display: flex; gap: .8rem; margin-top: 1rem; }
+    .analytics-id-form input {
+      flex: 1; padding: .6rem 1rem; border: 1px solid rgba(45,6,27,.2);
+      border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: .85rem;
+      outline: none;
+    }
+    .analytics-id-form input:focus { border-color: var(--muted); }
+
+    /* ── SECTION HEADER ── */
+    .section-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .section-hd h2 { font-size: 1rem; font-weight: 700; color: var(--dark); }
+
+    /* ── BOTÕES ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.3rem; border-radius: 50px; font-family: 'Poppins', sans-serif;
+      font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer; border: none; transition: all .25s;
+    }
     .btn svg { width: 14px; height: 14px; fill: currentColor; }
     .btn-primary { background: var(--dark); color: var(--light); }
     .btn-primary:hover { background: var(--dark2); transform: translateY(-2px); }
@@ -51,90 +127,161 @@
     .btn-secondary:hover { background: var(--bege); }
     .btn-danger { background: rgba(231,76,60,.1); color: var(--red); border: 1.5px solid rgba(231,76,60,.2); }
     .btn-danger:hover { background: rgba(231,76,60,.2); }
+    .btn-success { background: rgba(46,204,113,.12); color: #27ae60; border: 1.5px solid rgba(46,204,113,.25); }
     .btn-sm { padding: .4rem .9rem; font-size: .7rem; }
-    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+    /* ── CARDS EDITÁVEIS ── */
+    .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .edit-card {
+      background: #fff; border-radius: 14px; padding: 1.4rem;
+      border: 1px solid rgba(45,6,27,.07);
+    }
+    .edit-card-title { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
     .field { margin-bottom: 1rem; }
     .field label { display: block; font-size: .72rem; font-weight: 600; color: var(--muted); margin-bottom: .4rem; }
-    .field input, .field textarea, .field select { width: 100%; padding: .7rem .9rem; border: 1px solid rgba(45,6,27,.15); border-radius: 8px; font-family: 'Poppins',sans-serif; font-size: .85rem; color: #222; outline: none; transition: border-color .3s; background: #fafafa; }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: .7rem .9rem;
+      border: 1px solid rgba(45,6,27,.15); border-radius: 8px;
+      font-family: 'Poppins', sans-serif; font-size: .85rem; color: #222;
+      outline: none; transition: border-color .3s; background: #fafafa;
+    }
     .field input:focus, .field textarea:focus { border-color: var(--muted); background: #fff; }
     .field textarea { resize: vertical; min-height: 80px; }
-    .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
-    .edit-card { background: #fff; border-radius: 14px; padding: 1.4rem; border: 1px solid rgba(45,6,27,.07); }
-    .edit-card-title { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-    .foto-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-bottom: 1.5rem; }
-    .foto-card { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(45,6,27,.07); }
-    .foto-thumb { width: 100%; height: 180px; object-fit: cover; background: var(--light); display: block; }
-    .foto-body { padding: 1rem; }
-    .foto-name { font-size: .78rem; font-weight: 700; color: var(--dark); margin-bottom: .25rem; }
-    .foto-desc { font-size: .72rem; color: var(--muted); margin-bottom: .8rem; line-height: 1.5; }
-    .upload-label { display: inline-flex; align-items: center; gap: .4rem; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dark); cursor: pointer; background: var(--light); border: 1.5px solid rgba(45,6,27,.12); border-radius: 50px; padding: .45rem .9rem; transition: all .25s; font-family: 'Poppins',sans-serif; }
-    .upload-label:hover { background: var(--bege); }
-    .upload-label svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* ── FOTOS ── */
+    .foto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .foto-card {
+      background: #fff; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(45,6,27,.07);
+    }
+    .foto-card-img {
+      width: 100%; height: 180px; object-fit: cover;
+      background: var(--light); display: block;
+    }
+    .foto-card-body { padding: 1rem; }
+    .foto-card-name { font-size: .78rem; font-weight: 700; color: var(--dark); margin-bottom: .3rem; }
+    .foto-card-desc { font-size: .72rem; color: var(--muted); margin-bottom: .8rem; line-height: 1.5; }
+    .foto-upload-btn {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--dark); cursor: pointer; background: var(--light);
+      border: 1.5px solid rgba(45,6,27,.12); border-radius: 50px;
+      padding: .45rem .9rem; transition: all .25s; font-family: 'Poppins', sans-serif;
+    }
+    .foto-upload-btn:hover { background: var(--bege); }
+    .foto-upload-btn svg { width: 12px; height: 12px; fill: currentColor; }
     input[type=file] { display: none; }
-    .foto-st { font-size: .7rem; margin-top: .5rem; min-height: 1.1rem; }
+
+    /* ── BLOG ── */
     .blog-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
-    .blog-item { background: #fff; border-radius: 14px; padding: 1.2rem 1.4rem; border: 1px solid rgba(45,6,27,.07); display: flex; align-items: center; gap: 1.2rem; }
-    .blog-thumb { width: 70px; height: 50px; border-radius: 8px; object-fit: cover; background: var(--light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .blog-info { flex: 1; min-width: 0; }
-    .blog-cat { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-    .blog-titulo { font-size: .9rem; font-weight: 700; color: var(--dark); margin: .2rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .blog-data { font-size: .7rem; color: var(--muted); opacity: .7; }
-    .blog-actions { display: flex; gap: .5rem; flex-shrink: 0; }
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .blog-item {
+      background: #fff; border-radius: 14px; padding: 1.2rem 1.4rem;
+      border: 1px solid rgba(45,6,27,.07);
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .blog-item-img {
+      width: 70px; height: 50px; border-radius: 8px; object-fit: cover;
+      background: var(--light); flex-shrink: 0;
+    }
+    .blog-item-info { flex: 1; min-width: 0; }
+    .blog-item-cat { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .blog-item-titulo { font-size: .9rem; font-weight: 700; color: var(--dark); margin: .2rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .blog-item-data { font-size: .7rem; color: var(--muted); opacity: .7; }
+    .blog-item-actions { display: flex; gap: .5rem; flex-shrink: 0; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      z-index: 200; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal { background: #fff; border-radius: 18px; padding: 2rem; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform .3s; }
+    .modal {
+      background: #fff; border-radius: 18px; padding: 2rem;
+      width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto;
+      transform: translateY(20px); transition: transform .3s;
+    }
     .modal-overlay.open .modal { transform: translateY(0); }
-    .modal-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-    .modal-hd h2 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
     .modal-close { background: none; border: none; cursor: pointer; font-size: 1.4rem; color: var(--muted); line-height: 1; }
-    .modal-ft { display: flex; justify-content: flex-end; gap: .8rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(45,6,27,.08); }
-    .progress { height: 4px; background: rgba(45,6,27,.08); border-radius: 2px; overflow: hidden; margin-top: .8rem; display: none; }
-    .progress.vis { display: block; }
-    .progress-fill { height: 100%; background: var(--dark); border-radius: 2px; transition: width .5s; }
-    .section-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-    .section-hd h2 { font-size: 1rem; font-weight: 700; color: var(--dark); }
-    .toast { position: fixed; bottom: 2rem; right: 2rem; padding: .85rem 1.5rem; border-radius: 50px; font-size: .82rem; font-weight: 600; z-index: 999; transform: translateY(20px); opacity: 0; transition: all .3s; pointer-events: none; }
+    .modal-footer { display: flex; justify-content: flex-end; gap: .8rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(45,6,27,.08); }
+
+    /* ── INSTRUCOES GITHUB ── */
+    .instrucoes {
+      background: var(--light); border-radius: 14px; padding: 1.5rem;
+      border: 1px solid rgba(45,6,27,.08); margin-top: 1.5rem;
+    }
+    .instrucoes h3 { font-size: .85rem; font-weight: 700; color: var(--dark); margin-bottom: .8rem; }
+    .instrucoes ol { padding-left: 1.2rem; }
+    .instrucoes li { font-size: .82rem; color: var(--muted); line-height: 1.8; }
+    .instrucoes code {
+      background: rgba(45,6,27,.07); color: var(--dark);
+      padding: .1rem .4rem; border-radius: 4px; font-family: monospace; font-size: .8rem;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--dark); color: var(--light);
+      padding: .8rem 1.4rem; border-radius: 50px;
+      font-size: .82rem; font-weight: 600;
+      z-index: 999; transform: translateY(20px); opacity: 0;
+      transition: all .3s; pointer-events: none;
+    }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.ok   { background: var(--dark); color: var(--light); }
-    .toast.erro { background: var(--red);  color: #fff; }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid rgba(45,6,27,.08); margin: 1.5rem 0; }
+
     @media (max-width: 900px) {
       .sidebar { width: 60px; }
       .sidebar-logo img, .sidebar-label, .nav-item span, .btn-sair span { display: none; }
       .main { margin-left: 60px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
-      .edit-grid  { grid-template-columns: 1fr; }
-      .foto-grid  { grid-template-columns: 1fr 1fr; }
+      .edit-grid { grid-template-columns: 1fr; }
+      .foto-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
+<!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sidebar-logo"><img src="../images/logo.png" alt="Amanda Reis"/></div>
+  <div class="sidebar-logo">
+    <img src="../images/logo.png" alt="Amanda Reis"/>
+  </div>
   <div class="sidebar-label">Menu</div>
   <a class="nav-item active" onclick="aba('dashboard')" href="#">
-    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg><span>Dashboard</span>
+    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+    <span>Dashboard</span>
   </a>
   <a class="nav-item" onclick="aba('textos')" href="#">
-    <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg><span>Textos</span>
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-4h8v2H8v-2z"/></svg>
+    <span>Textos</span>
   </a>
   <a class="nav-item" onclick="aba('fotos')" href="#">
-    <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>Fotos</span>
+    <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+    <span>Fotos</span>
   </a>
   <a class="nav-item" onclick="aba('blog')" href="#">
-    <svg viewBox="0 0 24 24"><path d="M3 18h12v-2H3v2zm0-5h12v-2H3v2zm0-7v2h12V6H3zm13 6.5c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5S23 8 20.5 8 16 10 16 12.5zm6 0l-2.5 2.5-1.5-1.5-1 1 2.5 2.5 3.5-3.5-1-1z"/></svg><span>Blog</span>
+    <svg viewBox="0 0 24 24"><path d="M3 18h12v-2H3v2zm0-5h12v-2H3v2zm0-7v2h12V6H3zm13 6.5c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5S23 8 20.5 8 16 10 16 12.5zm6 0l-2.5 2.5-1.5-1.5-1 1 2.5 2.5 3.5-3.5-1-1z"/></svg>
+    <span>Blog</span>
   </a>
   <div class="sidebar-label">Site</div>
   <a class="nav-item" href="../index.html" target="_blank">
-    <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg><span>Ver site</span>
+    <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+    <span>Ver site</span>
   </a>
   <div class="sidebar-footer">
     <button class="btn-sair" onclick="sair()">
-      <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg><span>Sair</span>
+      <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+      <span>Sair</span>
     </button>
   </div>
 </aside>
 
+<!-- MAIN -->
 <main class="main">
   <div class="topbar">
     <div>
@@ -143,197 +290,320 @@
     </div>
     <div class="badge-live">Site no ar</div>
   </div>
+
   <div class="content">
 
-    <!-- DASHBOARD -->
+    <!-- ── DASHBOARD ── -->
     <div class="tab-panel active" id="tab-dashboard">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Artigos no Blog</div>
-          <div class="stat-val" id="stat-artigos">—</div>
-          <div class="stat-sub">publicados</div>
+          <div class="stat-card-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+          <div class="stat-card-label">Artigos no Blog</div>
+          <div class="stat-card-val" id="stat-artigos">—</div>
+          <div class="stat-card-sub">publicados</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Status</div>
-          <div class="stat-val" style="font-size:1rem;padding-top:.5rem;color:#27ae60">● Online</div>
-          <div class="stat-sub">site no ar</div>
+          <div class="stat-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <div class="stat-card-label">Status</div>
+          <div class="stat-card-val" style="font-size:1.1rem;padding-top:.4rem;color:#27ae60">Online</div>
+          <div class="stat-card-sub">site no ar</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Último artigo</div>
-          <div class="stat-val" id="stat-ultimo" style="font-size:.88rem;padding-top:.5rem">—</div>
-          <div class="stat-sub" id="stat-ultimo-data">—</div>
+          <div class="stat-card-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+          <div class="stat-card-label">Último artigo</div>
+          <div class="stat-card-val" id="stat-ultimo" style="font-size:.95rem;padding-top:.5rem">—</div>
+          <div class="stat-card-sub" id="stat-ultimo-data">—</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">GitHub</div>
-          <div class="stat-val" style="font-size:.88rem;padding-top:.5rem;color:#27ae60">● Conectado</div>
-          <div class="stat-sub">auto-publicação ativa</div>
+          <div class="stat-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+          <div class="stat-card-label">SEO</div>
+          <div class="stat-card-val" style="font-size:1rem;padding-top:.5rem">Ver Analytics</div>
+          <div class="stat-card-sub">Google Analytics abaixo</div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">📊 Google Analytics</div>
+
+      <!-- Google Analytics -->
+      <div class="analytics-card">
+        <h3>📊 Google Analytics — Visitas ao Site</h3>
         <div id="ga-area">
-          <p style="font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1rem">
-            Configure seu ID do Google Analytics para monitorar visitas ao site.<br>
-            Acesse <a href="https://analytics.google.com" target="_blank" style="color:var(--dark);font-weight:600">analytics.google.com</a>, crie uma propriedade para <strong>draamandareis.com.br</strong> e copie o ID no formato <code style="background:var(--light);padding:.1rem .4rem;border-radius:4px;font-size:.8rem">G-XXXXXXXXXX</code>.
-          </p>
-          <div style="display:flex;gap:.8rem;max-width:420px">
-            <input type="text" id="ga-id-input" placeholder="G-XXXXXXXXXX" style="flex:1;padding:.65rem 1rem;border:1px solid rgba(45,6,27,.2);border-radius:8px;font-family:'Poppins',sans-serif;font-size:.85rem;outline:none"/>
-            <button class="btn btn-primary btn-sm" onclick="salvarGA()">Salvar</button>
+          <div class="analytics-placeholder">
+            <p>
+              Para ver as estatísticas de visitas aqui, você precisa:<br><br>
+              <strong>1.</strong> Criar uma conta gratuita em <a href="https://analytics.google.com" target="_blank">analytics.google.com</a><br>
+              <strong>2.</strong> Adicionar o site <code>draamandareis.com.br</code> como propriedade<br>
+              <strong>3.</strong> Copiar o seu <strong>ID de medição</strong> (formato: <code>G-XXXXXXXXXX</code>)<br>
+              <strong>4.</strong> Cole o ID abaixo para ativar:
+            </p>
+            <div class="analytics-id-form">
+              <input type="text" id="ga-id-input" placeholder="G-XXXXXXXXXX"/>
+              <button class="btn btn-primary btn-sm" onclick="salvarGA()">Salvar</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">⚡ Atalhos rápidos</div>
-        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-          <button class="btn btn-secondary" onclick="aba('blog');setTimeout(abrirModalNovo,50)">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Novo artigo
+
+      <!-- Atalhos rápidos -->
+      <div class="analytics-card">
+        <h3>⚡ Atalhos rápidos</h3>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.5rem">
+          <button class="btn btn-secondary" onclick="aba('blog');abrirModalNovo()">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Novo artigo
           </button>
           <button class="btn btn-secondary" onclick="aba('fotos')">
-            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Trocar fotos
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            Trocar fotos
           </button>
           <button class="btn btn-secondary" onclick="aba('textos')">
-            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Editar textos
+            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            Editar textos
           </button>
-          <a class="btn btn-secondary" href="https://analytics.google.com" target="_blank">Analytics</a>
-          <a class="btn btn-secondary" href="https://search.google.com/search-console" target="_blank">Search Console</a>
+          <a class="btn btn-secondary" href="https://analytics.google.com" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14l-4-4 1.41-1.41L12 14.17l6.59-6.59L20 9l-8 8z"/></svg>
+            Google Analytics
+          </a>
+          <a class="btn btn-secondary" href="https://search.google.com/search-console" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            Search Console
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- TEXTOS -->
+    <!-- ── TEXTOS ── -->
     <div class="tab-panel" id="tab-textos">
       <div class="section-hd">
         <h2>Editar textos do site</h2>
-        <button class="btn btn-primary" id="btn-textos" onclick="salvarTextos()">
-          <svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>Salvar e publicar
+        <button class="btn btn-primary" onclick="gerarTextos()">
+          <svg viewBox="0 0 24 24"><path d="M17 16l4-4-4-4v3H3v2h14v3z"/></svg>
+          Gerar arquivo atualizado
         </button>
       </div>
-      <div class="progress" id="prog-txt"><div class="progress-fill" id="prog-txt-f" style="width:0%"></div></div>
+
       <div class="edit-grid">
         <div class="edit-card">
-          <div class="edit-card-title">Hero — Cabeçalho</div>
-          <div class="field"><label>Badge (texto pequeno no topo)</label><input type="text" id="t-badge" value="Advocacia &amp; Consultoria Jurídica"/></div>
-          <div class="field"><label>OAB / Subtítulo</label><input type="text" id="t-oab" value="OAB/DF · Advogada Previdencialista, Trabalhista e Civilista"/></div>
-          <div class="field"><label>Descrição</label><textarea id="t-desc">Defesa dos seus direitos com estratégia, rigor técnico e comprometimento. Mais de 15 anos transformando causas em conquistas reais.</textarea></div>
+          <div class="edit-card-title">Hero — Cabeçalho principal</div>
+          <div class="field">
+            <label>Badge (texto pequeno no topo)</label>
+            <input type="text" id="t-badge" value="Advocacia &amp; Consultoria Jurídica"/>
+          </div>
+          <div class="field">
+            <label>OAB / Subtítulo</label>
+            <input type="text" id="t-oab" value="OAB/DF · Advogada Previdencialista, Trabalhista e Civilista"/>
+          </div>
+          <div class="field">
+            <label>Descrição</label>
+            <textarea id="t-desc">Defesa dos seus direitos com estratégia, rigor técnico e comprometimento. Mais de 15 anos transformando causas em conquistas reais.</textarea>
+          </div>
         </div>
+
         <div class="edit-card">
-          <div class="edit-card-title">Estatísticas hero</div>
-          <div class="field"><label>Número 1</label><input type="text" id="t-s1n" value="+15"/></div>
-          <div class="field"><label>Label 1</label><input type="text" id="t-s1l" value="Anos de Atuação"/></div>
-          <div class="field"><label>Número 2</label><input type="text" id="t-s2n" value="+500"/></div>
-          <div class="field"><label>Label 2</label><input type="text" id="t-s2l" value="Clientes Atendidos"/></div>
-          <div class="field"><label>Número 3</label><input type="text" id="t-s3n" value="4"/></div>
-          <div class="field"><label>Label 3</label><input type="text" id="t-s3l" value="Pós-Graduações"/></div>
+          <div class="edit-card-title">Estatísticas (barra inferior do hero)</div>
+          <div class="field">
+            <label>Número 1 (ex: +15)</label>
+            <input type="text" id="t-stat1n" value="+15"/>
+          </div>
+          <div class="field">
+            <label>Label 1</label>
+            <input type="text" id="t-stat1l" value="Anos de Atuação"/>
+          </div>
+          <div class="field">
+            <label>Número 2</label>
+            <input type="text" id="t-stat2n" value="+500"/>
+          </div>
+          <div class="field">
+            <label>Label 2</label>
+            <input type="text" id="t-stat2l" value="Clientes Atendidos"/>
+          </div>
+          <div class="field">
+            <label>Número 3</label>
+            <input type="text" id="t-stat3n" value="4"/>
+          </div>
+          <div class="field">
+            <label>Label 3</label>
+            <input type="text" id="t-stat3l" value="Pós-Graduações"/>
+          </div>
         </div>
+
         <div class="edit-card">
           <div class="edit-card-title">Contato</div>
-          <div class="field"><label>WhatsApp (só números com DDD)</label><input type="text" id="t-wa" value="5561999284025"/></div>
-          <div class="field"><label>E-mail</label><input type="text" id="t-em" value="contato@draamandareis.com.br"/></div>
-          <div class="field"><label>Telefone exibido</label><input type="text" id="t-tel" value="(61) 99928-4025"/></div>
-          <div class="field"><label>Localização</label><input type="text" id="t-loc" value="Brasília/DF · Goiás · Online para todo o Brasil"/></div>
+          <div class="field">
+            <label>WhatsApp (só números com DDD)</label>
+            <input type="text" id="t-whats" value="5561999284025"/>
+          </div>
+          <div class="field">
+            <label>E-mail</label>
+            <input type="text" id="t-email" value="contato@draamandareis.com.br"/>
+          </div>
+          <div class="field">
+            <label>Telefone exibido</label>
+            <input type="text" id="t-tel" value="(61) 99928-4025"/>
+          </div>
+          <div class="field">
+            <label>Localização</label>
+            <input type="text" id="t-loc" value="Brasília/DF · Goiás · Online para todo o Brasil"/>
+          </div>
         </div>
+
         <div class="edit-card">
           <div class="edit-card-title">Redes sociais</div>
-          <div class="field"><label>Instagram</label><input type="text" id="t-ig" value="https://www.instagram.com/advamandareis/"/></div>
-          <div class="field"><label>Site oficial (Wix)</label><input type="text" id="t-site" value="https://www.draamandareis.com.br"/></div>
+          <div class="field">
+            <label>Link do Instagram</label>
+            <input type="text" id="t-insta" value="https://www.instagram.com/advamandareis/"/>
+          </div>
+          <div class="field">
+            <label>Link do site oficial (Wix)</label>
+            <input type="text" id="t-site" value="https://www.draamandareis.com.br"/>
+          </div>
         </div>
+      </div>
+
+      <div class="instrucoes">
+        <h3>Como aplicar as alterações?</h3>
+        <ol>
+          <li>Clique em <strong>"Gerar arquivo atualizado"</strong> — um arquivo <code>textos.json</code> será baixado</li>
+          <li>Acesse o repositório do site no <strong>GitHub</strong></li>
+          <li>Faça upload do arquivo <code>textos.json</code> na pasta raiz, substituindo o existente</li>
+          <li>O Netlify detectará a mudança e republicará o site automaticamente em ~1 min</li>
+        </ol>
       </div>
     </div>
 
-    <!-- FOTOS -->
+    <!-- ── FOTOS ── -->
     <div class="tab-panel" id="tab-fotos">
       <div class="section-hd">
         <h2>Fotos do site</h2>
-        <span style="font-size:.78rem;color:var(--muted)">Selecione a foto — publicação automática</span>
+        <span style="font-size:.78rem;color:var(--muted)">Clique em "Trocar foto" e depois siga as instruções</span>
       </div>
+
       <div class="foto-grid">
         <div class="foto-card">
-          <img class="foto-thumb" src="../images/foto_hero.png" id="pv-hero" alt="Hero"/>
-          <div class="foto-body">
-            <div class="foto-name">Foto Hero</div>
-            <div class="foto-desc">Seção principal da página. Ideal: 725 × 900 px.</div>
-            <label class="upload-label" for="up-hero"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>Trocar foto</label>
-            <input type="file" id="up-hero" accept="image/*" onchange="uploadFoto(this,'pv-hero','images/foto_hero.png','st-hero')"/>
-            <div class="foto-st" id="st-hero"></div>
+          <img class="foto-card-img" src="../images/foto_hero.png" id="prev-hero" alt="Foto Hero"/>
+          <div class="foto-card-body">
+            <div class="foto-card-name">Foto Hero</div>
+            <div class="foto-card-desc">Aparece na seção principal da página, ao centro. Tamanho ideal: 725 × 900 px.</div>
+            <label class="foto-upload-btn" for="upload-hero">
+              <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+              Trocar foto
+            </label>
+            <input type="file" id="upload-hero" accept="image/*" onchange="previewFoto(this,'prev-hero','foto_hero.png')"/>
           </div>
         </div>
+
         <div class="foto-card">
-          <img class="foto-thumb" src="../images/foto_sobre.png" id="pv-sobre" alt="Sobre"/>
-          <div class="foto-body">
-            <div class="foto-name">Foto Sobre</div>
-            <div class="foto-desc">Seção "Sobre a Dra. Amanda". Ideal: 725 × 900 px.</div>
-            <label class="upload-label" for="up-sobre"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>Trocar foto</label>
-            <input type="file" id="up-sobre" accept="image/*" onchange="uploadFoto(this,'pv-sobre','images/foto_sobre.png','st-sobre')"/>
-            <div class="foto-st" id="st-sobre"></div>
+          <img class="foto-card-img" src="../images/foto_sobre.png" id="prev-sobre" alt="Foto Sobre"/>
+          <div class="foto-card-body">
+            <div class="foto-card-name">Foto Sobre</div>
+            <div class="foto-card-desc">Aparece na seção "Sobre a Dra. Amanda". Tamanho ideal: 725 × 900 px.</div>
+            <label class="foto-upload-btn" for="upload-sobre">
+              <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+              Trocar foto
+            </label>
+            <input type="file" id="upload-sobre" accept="image/*" onchange="previewFoto(this,'prev-sobre','foto_sobre.png')"/>
           </div>
         </div>
+
         <div class="foto-card">
-          <img class="foto-thumb" src="../images/foto_depoimento.png" id="pv-dep" alt="Depoimento"/>
-          <div class="foto-body">
-            <div class="foto-name">Foto Depoimento</div>
-            <div class="foto-desc">Seção de diferenciais. Ideal: 725 × 900 px.</div>
-            <label class="upload-label" for="up-dep"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>Trocar foto</label>
-            <input type="file" id="up-dep" accept="image/*" onchange="uploadFoto(this,'pv-dep','images/foto_depoimento.png','st-dep')"/>
-            <div class="foto-st" id="st-dep"></div>
+          <img class="foto-card-img" src="../images/foto_depoimento.png" id="prev-dep" alt="Foto Depoimento"/>
+          <div class="foto-card-body">
+            <div class="foto-card-name">Foto Depoimento</div>
+            <div class="foto-card-desc">Aparece na seção de diferenciais/depoimento. Tamanho ideal: 725 × 900 px.</div>
+            <label class="foto-upload-btn" for="upload-dep">
+              <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+              Trocar foto
+            </label>
+            <input type="file" id="upload-dep" accept="image/*" onchange="previewFoto(this,'prev-dep','foto_depoimento.png')"/>
           </div>
         </div>
+      </div>
+
+      <div class="instrucoes" style="margin-top:1.5rem">
+        <h3>Como aplicar as fotos?</h3>
+        <ol>
+          <li>Clique em <strong>"Trocar foto"</strong> — a prévia atualiza na hora para você conferir</li>
+          <li>Acesse o repositório do site no <strong>GitHub</strong></li>
+          <li>Navegue até a pasta <code>images/</code></li>
+          <li>Faça upload do novo arquivo com o <strong>mesmo nome</strong> da foto original (ex: <code>foto_hero.png</code>), substituindo o existente</li>
+          <li>O Netlify republicará automaticamente em ~1 minuto</li>
+        </ol>
       </div>
     </div>
 
-    <!-- BLOG -->
+    <!-- ── BLOG ── -->
     <div class="tab-panel" id="tab-blog">
       <div class="section-hd">
         <h2>Artigos do Blog</h2>
         <button class="btn btn-primary" onclick="abrirModalNovo()">
-          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Novo artigo
+          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          Novo artigo
         </button>
       </div>
-      <div class="blog-list" id="blog-lista"></div>
+
+      <div class="blog-list" id="blog-lista">
+        <!-- preenchido por JS -->
+      </div>
+
+      <div class="instrucoes">
+        <h3>Como publicar um artigo novo?</h3>
+        <ol>
+          <li>Clique em <strong>"Novo artigo"</strong>, preencha os campos e clique em <strong>"Baixar artigos.js"</strong></li>
+          <li>Acesse o repositório no <strong>GitHub</strong></li>
+          <li>Navegue até a pasta <code>blog/</code> e faça upload do arquivo <code>artigos.js</code> baixado, substituindo o existente</li>
+          <li>Se tiver foto, suba também o arquivo da imagem na pasta <code>blog/imagens/</code></li>
+          <li>O Netlify republicará automaticamente em ~1 minuto</li>
+        </ol>
+      </div>
     </div>
 
-  </div>
+  </div><!-- /content -->
 </main>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
+<!-- MODAL ARTIGO -->
+<div class="modal-overlay" id="modal-artigo">
   <div class="modal">
-    <div class="modal-hd">
+    <div class="modal-header">
       <h2 id="modal-titulo">Novo artigo</h2>
       <button class="modal-close" onclick="fecharModal()">×</button>
     </div>
-    <div class="field"><label>Título *</label><input type="text" id="a-titulo" placeholder="Ex: Como pedir aposentadoria pelo INSS"/></div>
+
+    <input type="hidden" id="art-id"/>
+    <div class="field">
+      <label>Título *</label>
+      <input type="text" id="art-titulo" placeholder="Ex: Como pedir aposentadoria pelo INSS"/>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-      <div class="field"><label>Categoria *</label>
-        <select id="a-cat">
+      <div class="field">
+        <label>Categoria *</label>
+        <select id="art-cat">
           <option value="Previdenciario">Previdenciario</option>
           <option value="Trabalhista">Trabalhista</option>
           <option value="Familia">Familia</option>
           <option value="Eleitoral">Eleitoral</option>
         </select>
       </div>
-      <div class="field"><label>Data (DD/MM/AAAA)</label><input type="text" id="a-data"/></div>
-    </div>
-    <div class="field"><label>Resumo (aparece no card) *</label><textarea id="a-resumo" style="min-height:60px" placeholder="1-2 frases descrevendo o artigo..."></textarea></div>
-    <div class="field">
-      <label>Foto de capa</label>
-      <div style="display:flex;gap:.8rem;align-items:center">
-        <input type="text" id="a-foto-nome" placeholder="nome-do-arquivo.jpg  (opcional)" style="flex:1"/>
-        <label class="upload-label" for="up-art" style="white-space:nowrap;flex-shrink:0">
-          <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>Selecionar
-        </label>
-        <input type="file" id="up-art" accept="image/*" onchange="selecionarFotoArt(this)"/>
+      <div class="field">
+        <label>Data (DD/MM/AAAA) *</label>
+        <input type="text" id="art-data" placeholder="10/03/2025"/>
       </div>
-      <div id="a-foto-st" style="font-size:.72rem;color:var(--muted);margin-top:.4rem"></div>
     </div>
     <div class="field">
-      <label>Conteúdo * &nbsp;—&nbsp; linha em branco = parágrafo &nbsp;·&nbsp; ## Título = subtítulo &nbsp;·&nbsp; - item = lista</label>
-      <textarea id="a-conteudo" style="min-height:220px;font-family:monospace;font-size:.82rem" placeholder="Escreva o texto aqui...&#10;&#10;## Subtítulo&#10;&#10;Texto do parágrafo.&#10;&#10;- Item 1&#10;- Item 2"></textarea>
+      <label>Resumo (aparece no card) *</label>
+      <textarea id="art-resumo" placeholder="1-2 frases descrevendo o artigo..." style="min-height:60px"></textarea>
     </div>
-    <div class="progress" id="prog-art"><div class="progress-fill" id="prog-art-f" style="width:0%"></div></div>
-    <div class="modal-ft">
+    <div class="field">
+      <label>Nome do arquivo da foto (colocar em blog/imagens/)</label>
+      <input type="text" id="art-foto" placeholder="Ex: aposentadoria-inss.jpg  (deixe vazio se não tiver foto)"/>
+    </div>
+    <div class="field">
+      <label>Conteúdo completo (escreva normalmente — será convertido automaticamente)</label>
+      <textarea id="art-conteudo" placeholder="Escreva o texto do artigo aqui. Use linha em branco para separar parágrafos. Linhas começando com ## viram subtítulos." style="min-height:200px;font-family:monospace;font-size:.82rem"></textarea>
+    </div>
+
+    <div class="modal-footer">
       <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
-      <button class="btn btn-primary" id="btn-pub" onclick="salvarArtigo()">
-        <svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>Publicar artigo
+      <button class="btn btn-primary" onclick="salvarArtigo()">
+        <svg viewBox="0 0 24 24"><path d="M17 16l4-4-4-4v3H3v2h14v3z"/></svg>
+        Baixar artigos.js
       </button>
     </div>
   </div>
@@ -342,336 +612,307 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── GITHUB CONFIG ────────────────────────────────────
-const GH_USER  = 'jessicapscosta';
-const GH_REPO  = 'draamandareis';
-const GH_TOKEN = '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';
-const GH_BASE  = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/`;
-
 // ── AUTH ─────────────────────────────────────────────
-if (sessionStorage.getItem('admin_auth') !== 'ok') location.href = 'index.html';
+if (sessionStorage.getItem('admin_auth') !== 'ok') {
+  window.location.href = 'index.html';
+}
 
-// ── NAVEGAÇÃO ────────────────────────────────────────
-const ABA_INFO = {
-  dashboard: ['Dashboard','Visão geral do site'],
-  textos:    ['Editar Textos','Altere os textos do site'],
-  fotos:     ['Fotos','Troque as fotos — publicação automática'],
-  blog:      ['Blog','Gerencie os artigos publicados'],
+// ── ABAS ─────────────────────────────────────────────
+const ABAS = {
+  dashboard: { titulo: 'Dashboard', sub: 'Visão geral do site' },
+  textos:    { titulo: 'Editar Textos', sub: 'Altere os textos exibidos no site' },
+  fotos:     { titulo: 'Fotos', sub: 'Troque as fotos do site' },
+  blog:      { titulo: 'Blog', sub: 'Gerencie os artigos publicados' },
 };
+
 function aba(id) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  const idx = Object.keys(ABA_INFO).indexOf(id);
-  document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
-  document.getElementById('topbar-title').textContent = ABA_INFO[id][0];
-  document.getElementById('topbar-sub').textContent   = ABA_INFO[id][1];
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item')[['dashboard','textos','fotos','blog'].indexOf(id)]?.classList.add('active');
+  document.getElementById('topbar-title').textContent = ABAS[id].titulo;
+  document.getElementById('topbar-sub').textContent   = ABAS[id].sub;
   return false;
-}
-
-// ── GITHUB API ───────────────────────────────────────
-const GH_HEADERS = {
-  Authorization: `token ${GH_TOKEN}`,
-  Accept: 'application/vnd.github.v3+json',
-  'Content-Type': 'application/json',
-};
-
-async function ghGet(path) {
-  try {
-    const r = await fetch(GH_BASE + path, { headers: GH_HEADERS });
-    return r.ok ? r.json() : null;
-  } catch { return null; }
-}
-
-async function ghPut(path, content, msg) {
-  const existing = await ghGet(path);
-  const body = { message: msg || `Admin: atualiza ${path}`, content };
-  if (existing?.sha) body.sha = existing.sha;
-  const r = await fetch(GH_BASE + path, {
-    method: 'PUT', headers: GH_HEADERS, body: JSON.stringify(body),
-  });
-  return r.ok;
-}
-
-function b64(str)  { return btoa(unescape(encodeURIComponent(str))); }
-function fileB64(file) {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = e => res(e.target.result.split(',')[1]);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-
-function setProg(id, pct) {
-  const bar  = document.getElementById('prog-'+id);
-  const fill = document.getElementById('prog-'+id+'-f');
-  if (!bar||!fill) return;
-  bar.classList.add('vis');
-  fill.style.width = pct + '%';
-  if (pct >= 100) setTimeout(() => { bar.classList.remove('vis'); fill.style.width='0%'; }, 1400);
 }
 
 // ── ARTIGOS ──────────────────────────────────────────
 let ARTIGOS = [];
-let editId  = null;
-let artFotoFile = null;
+let editandoId = null;
 
 (function carregarArtigos() {
   const s = document.createElement('script');
-  s.src = '../blog/artigos.js?' + Date.now();
-  s.onload = () => {
+  s.src = '../blog/artigos.js';
+  s.onload = function() {
     ARTIGOS = window.ARTIGOS ? [...window.ARTIGOS] : [];
     renderBlog();
+    // stats
     document.getElementById('stat-artigos').textContent = ARTIGOS.length;
     if (ARTIGOS.length) {
-      const u = ARTIGOS[ARTIGOS.length-1];
-      document.getElementById('stat-ultimo').textContent     = u.titulo.substring(0,30)+'…';
-      document.getElementById('stat-ultimo-data').textContent = u.data;
+      const ult = ARTIGOS[ARTIGOS.length - 1];
+      document.getElementById('stat-ultimo').textContent = ult.titulo.substring(0, 28) + '…';
+      document.getElementById('stat-ultimo-data').textContent = ult.data;
     }
   };
   document.body.appendChild(s);
 })();
 
 function renderBlog() {
-  const el = document.getElementById('blog-lista');
+  const lista = document.getElementById('blog-lista');
   if (!ARTIGOS.length) {
-    el.innerHTML = '<p style="color:var(--muted);font-size:.85rem;padding:1rem 0">Nenhum artigo publicado ainda.</p>';
+    lista.innerHTML = '<p style="color:var(--muted);font-size:.85rem;padding:1rem">Nenhum artigo cadastrado ainda.</p>';
     return;
   }
-  el.innerHTML = [...ARTIGOS].reverse().map(a => `
+  lista.innerHTML = [...ARTIGOS].reverse().map(a => `
     <div class="blog-item">
       ${a.foto
-        ? `<img class="blog-thumb" src="../${a.foto}" style="object-fit:cover" alt="${a.titulo}"/>`
-        : `<div class="blog-thumb"><svg width="22" height="22" viewBox="0 0 24 24" fill="#ccc"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>`}
-      <div class="blog-info">
-        <div class="blog-cat">${a.categoria}</div>
-        <div class="blog-titulo">${a.titulo}</div>
-        <div class="blog-data">${a.data}</div>
+        ? `<img class="blog-item-img" src="../${a.foto}" alt="${a.titulo}"/>`
+        : `<div class="blog-item-img" style="display:flex;align-items:center;justify-content:center">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="#ccc"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+           </div>`
+      }
+      <div class="blog-item-info">
+        <div class="blog-item-cat">${a.categoria}</div>
+        <div class="blog-item-titulo">${a.titulo}</div>
+        <div class="blog-item-data">${a.data}</div>
       </div>
-      <div class="blog-actions">
+      <div class="blog-item-actions">
         <button class="btn btn-secondary btn-sm" onclick="editarArtigo(${a.id})">Editar</button>
-        <button class="btn btn-danger    btn-sm" onclick="excluirArtigo(${a.id})">Excluir</button>
+        <button class="btn btn-danger btn-sm" onclick="excluirArtigo(${a.id})">Excluir</button>
       </div>
-    </div>`).join('');
+    </div>
+  `).join('');
 }
 
+// ── MODAL ARTIGO ─────────────────────────────────────
 function abrirModalNovo() {
-  editId = null; artFotoFile = null;
+  editandoId = null;
   document.getElementById('modal-titulo').textContent = 'Novo artigo';
-  ['a-titulo','a-resumo','a-conteudo','a-foto-nome'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('a-cat').value  = 'Previdenciario';
-  document.getElementById('a-data').value = hoje();
-  document.getElementById('a-foto-st').textContent = '';
-  document.getElementById('modal').classList.add('open');
+  document.getElementById('art-id').value = '';
+  document.getElementById('art-titulo').value = '';
+  document.getElementById('art-cat').value = 'Previdenciario';
+  document.getElementById('art-data').value = hoje();
+  document.getElementById('art-resumo').value = '';
+  document.getElementById('art-foto').value = '';
+  document.getElementById('art-conteudo').value = '';
+  document.getElementById('modal-artigo').classList.add('open');
 }
 
 function editarArtigo(id) {
   const a = ARTIGOS.find(x => x.id === id);
   if (!a) return;
-  editId = id; artFotoFile = null;
+  editandoId = id;
   document.getElementById('modal-titulo').textContent = 'Editar artigo';
-  document.getElementById('a-titulo').value    = a.titulo;
-  document.getElementById('a-cat').value       = a.categoria;
-  document.getElementById('a-data').value      = a.data;
-  document.getElementById('a-resumo').value    = a.resumo;
-  document.getElementById('a-foto-nome').value = a.foto ? a.foto.replace('blog/imagens/','') : '';
-  document.getElementById('a-conteudo').value  = htmlPara(a.conteudo);
-  document.getElementById('a-foto-st').textContent = '';
-  document.getElementById('modal').classList.add('open');
+  document.getElementById('art-id').value = id;
+  document.getElementById('art-titulo').value = a.titulo;
+  document.getElementById('art-cat').value = a.categoria;
+  document.getElementById('art-data').value = a.data;
+  document.getElementById('art-resumo').value = a.resumo;
+  document.getElementById('art-foto').value = a.foto ? a.foto.replace('blog/imagens/','') : '';
+  // converter HTML de volta para texto simples
+  document.getElementById('art-conteudo').value = htmlParaTexto(a.conteudo);
+  document.getElementById('modal-artigo').classList.add('open');
 }
 
-function fecharModal() { document.getElementById('modal').classList.remove('open'); }
-
-function selecionarFotoArt(input) {
-  const f = input.files[0]; if (!f) return;
-  artFotoFile = f;
-  document.getElementById('a-foto-nome').value = f.name;
-  document.getElementById('a-foto-st').textContent = '✓ ' + f.name + ' selecionada';
-}
-
-async function salvarArtigo() {
-  const titulo   = document.getElementById('a-titulo').value.trim();
-  const resumo   = document.getElementById('a-resumo').value.trim();
-  const conteudo = document.getElementById('a-conteudo').value.trim();
-  if (!titulo || !resumo || !conteudo) { alert('Preencha título, resumo e conteúdo.'); return; }
-
-  const btn = document.getElementById('btn-pub');
-  btn.disabled = true; btn.textContent = 'Publicando…';
-  setProg('art', 15);
-
-  const fotoNome = document.getElementById('a-foto-nome').value.trim();
-  const fotoPath = fotoNome ? 'blog/imagens/' + fotoNome : '';
-
-  const artigo = {
-    id:        editId || (ARTIGOS.length ? Math.max(...ARTIGOS.map(a=>a.id))+1 : 1),
-    titulo,
-    categoria: document.getElementById('a-cat').value,
-    data:      document.getElementById('a-data').value.trim() || hoje(),
-    resumo,
-    foto:      fotoPath,
-    conteudo:  paraHTML(conteudo),
-  };
-
-  ARTIGOS = editId
-    ? ARTIGOS.map(a => a.id === editId ? artigo : a)
-    : [...ARTIGOS, artigo];
-
-  setProg('art', 40);
-
-  // Upload da foto se houver
-  if (artFotoFile && fotoPath) {
-    try {
-      const b = await fileB64(artFotoFile);
-      await ghPut(fotoPath, b, 'Admin: foto artigo - ' + fotoNome);
-    } catch(e) { console.warn('Foto não enviada:', e); }
-  }
-
-  setProg('art', 70);
-
-  // Upload do artigos.js
-  const ok = await ghPut('blog/artigos.js', b64(gerarJS()), 'Admin: ' + (editId ? 'edita' : 'novo') + ' artigo - ' + titulo);
-
-  setProg('art', 100);
-  btn.disabled = false;
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg> Publicar artigo';
-
-  if (ok) {
-    fecharModal(); renderBlog();
-    document.getElementById('stat-artigos').textContent = ARTIGOS.length;
-    toast('✓ Artigo publicado! Site atualiza em ~1 minuto.', 'ok');
-  } else {
-    toast('Erro ao publicar. Tente novamente.', 'erro');
-  }
-}
-
-async function excluirArtigo(id) {
+function excluirArtigo(id) {
   if (!confirm('Tem certeza que deseja excluir este artigo?')) return;
   ARTIGOS = ARTIGOS.filter(a => a.id !== id);
-  const ok = await ghPut('blog/artigos.js', b64(gerarJS()), 'Admin: exclui artigo #' + id);
-  if (ok) {
-    renderBlog();
-    document.getElementById('stat-artigos').textContent = ARTIGOS.length;
-    toast('✓ Artigo excluído! Site atualiza em ~1 minuto.', 'ok');
-  } else {
-    toast('Erro ao excluir.', 'erro');
-  }
+  renderBlog();
+  document.getElementById('stat-artigos').textContent = ARTIGOS.length;
+  baixarArtigosJS();
+  toast('Artigo excluído! Faça upload do artigos.js no GitHub.');
 }
 
-// ── FOTOS ────────────────────────────────────────────
-async function uploadFoto(input, prevId, path, stId) {
-  const file = input.files[0]; if (!file) return;
-  const st = document.getElementById(stId);
-  st.style.color = 'var(--muted)'; st.textContent = 'Enviando…';
-  // Prévia imediata
-  const reader = new FileReader();
-  reader.onload = e => document.getElementById(prevId).src = e.target.result;
-  reader.readAsDataURL(file);
-  try {
-    const content = await fileB64(file);
-    const ok = await ghPut(path, content, 'Admin: troca ' + path.split('/').pop());
-    if (ok) {
-      st.style.color = 'var(--green)'; st.textContent = '✓ Publicada! Site atualiza em ~1 min';
-      toast('✓ Foto atualizada! Site atualiza em ~1 minuto.', 'ok');
-    } else {
-      st.style.color = 'var(--red)'; st.textContent = '✗ Erro ao publicar';
-      toast('Erro ao enviar foto.', 'erro');
-    }
-  } catch(e) {
-    st.style.color = 'var(--red)'; st.textContent = '✗ ' + e.message;
-  }
+function fecharModal() {
+  document.getElementById('modal-artigo').classList.remove('open');
 }
 
-// ── TEXTOS ───────────────────────────────────────────
-async function salvarTextos() {
-  const btn = document.getElementById('btn-textos');
-  btn.disabled = true; btn.textContent = 'Publicando…';
-  setProg('txt', 40);
-  const dados = {
-    badge: document.getElementById('t-badge').value,
-    oab:   document.getElementById('t-oab').value,
-    desc:  document.getElementById('t-desc').value,
-    s1n: document.getElementById('t-s1n').value, s1l: document.getElementById('t-s1l').value,
-    s2n: document.getElementById('t-s2n').value, s2l: document.getElementById('t-s2l').value,
-    s3n: document.getElementById('t-s3n').value, s3l: document.getElementById('t-s3l').value,
-    wa: document.getElementById('t-wa').value, email: document.getElementById('t-em').value,
-    tel: document.getElementById('t-tel').value, loc: document.getElementById('t-loc').value,
-    insta: document.getElementById('t-ig').value, site: document.getElementById('t-site').value,
+function salvarArtigo() {
+  const titulo = document.getElementById('art-titulo').value.trim();
+  const resumo = document.getElementById('art-resumo').value.trim();
+  const conteudo = document.getElementById('art-conteudo').value.trim();
+  if (!titulo || !resumo || !conteudo) {
+    alert('Preencha título, resumo e conteúdo.'); return;
+  }
+  const fotoNome = document.getElementById('art-foto').value.trim();
+  const artigo = {
+    id: editandoId || (ARTIGOS.length ? Math.max(...ARTIGOS.map(a => a.id)) + 1 : 1),
+    titulo: titulo,
+    categoria: document.getElementById('art-cat').value,
+    data: document.getElementById('art-data').value.trim() || hoje(),
+    resumo: resumo,
+    foto: fotoNome ? 'blog/imagens/' + fotoNome : '',
+    conteudo: textoParaHTML(conteudo),
   };
-  const ok = await ghPut('textos.json', b64(JSON.stringify(dados, null, 2)), 'Admin: atualiza textos');
-  setProg('txt', 100);
-  btn.disabled = false;
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg> Salvar e publicar';
-  if (ok) toast('✓ Textos salvos! Site atualiza em ~1 minuto.', 'ok');
-  else toast('Erro ao salvar textos.', 'erro');
+  if (editandoId) {
+    ARTIGOS = ARTIGOS.map(a => a.id === editandoId ? artigo : a);
+  } else {
+    ARTIGOS.push(artigo);
+  }
+  fecharModal();
+  renderBlog();
+  document.getElementById('stat-artigos').textContent = ARTIGOS.length;
+  baixarArtigosJS();
+  toast('artigos.js baixado! Faça upload no GitHub para publicar.');
 }
 
-// ── ANALYTICS ────────────────────────────────────────
+// ── CONVERSÃO TEXTO → HTML ────────────────────────────
+function textoParaHTML(texto) {
+  const linhas = texto.split('\n');
+  let html = '';
+  let emLista = false;
+  for (let linha of linhas) {
+    linha = linha.trim();
+    if (!linha) {
+      if (emLista) { html += '</ul>'; emLista = false; }
+      continue;
+    }
+    if (linha.startsWith('## ')) {
+      if (emLista) { html += '</ul>'; emLista = false; }
+      html += '<h3>' + linha.slice(3) + '</h3>';
+    } else if (linha.startsWith('- ') || linha.startsWith('* ')) {
+      if (!emLista) { html += '<ul>'; emLista = true; }
+      html += '<li>' + linha.slice(2) + '</li>';
+    } else {
+      if (emLista) { html += '</ul>'; emLista = false; }
+      html += '<p>' + linha + '</p>';
+    }
+  }
+  if (emLista) html += '</ul>';
+  return html;
+}
+
+function htmlParaTexto(html) {
+  return html
+    .replace(/<h3>(.*?)<\/h3>/g, '## $1\n')
+    .replace(/<ul>/g, '').replace(/<\/ul>/g, '\n')
+    .replace(/<li>(.*?)<\/li>/g, '- $1\n')
+    .replace(/<p>(.*?)<\/p>/g, '$1\n')
+    .replace(/<[^>]+>/g, '')
+    .trim();
+}
+
+// ── GERAR artigos.js ──────────────────────────────────
+function baixarArtigosJS() {
+  let js = '// Arquivo gerado pelo Painel Admin — Amanda Reis Advocacia\n';
+  js += '// Nao edite manualmente. Use o painel em /admin/\n\n';
+  js += 'window.ARTIGOS = [\n\n';
+  ARTIGOS.forEach((a, i) => {
+    const conteudoStr = a.conteudo
+      .replace(/\\/g, '\\\\')
+      .replace(/"/g, '\\"')
+      .split(/<(?=\w)/)
+      .join('\n      + "<');
+    js += '  {\n';
+    js += `    id: ${a.id},\n`;
+    js += `    titulo: "${a.titulo.replace(/"/g, '\\"')}",\n`;
+    js += `    categoria: "${a.categoria}",\n`;
+    js += `    data: "${a.data}",\n`;
+    js += `    resumo: "${a.resumo.replace(/"/g, '\\"')}",\n`;
+    js += `    foto: "${a.foto}",\n`;
+    js += `    conteudo: "${a.conteudo.replace(/"/g, '\\"').replace(/\n/g, '')}"\n`;
+    js += '  }' + (i < ARTIGOS.length - 1 ? ',' : '') + '\n\n';
+  });
+  js += '];\n';
+  download('artigos.js', js);
+}
+
+// ── TEXTOS ────────────────────────────────────────────
+function gerarTextos() {
+  const dados = {
+    badge:   document.getElementById('t-badge').value,
+    oab:     document.getElementById('t-oab').value,
+    desc:    document.getElementById('t-desc').value,
+    stat1n:  document.getElementById('t-stat1n').value,
+    stat1l:  document.getElementById('t-stat1l').value,
+    stat2n:  document.getElementById('t-stat2n').value,
+    stat2l:  document.getElementById('t-stat2l').value,
+    stat3n:  document.getElementById('t-stat3n').value,
+    stat3l:  document.getElementById('t-stat3l').value,
+    whats:   document.getElementById('t-whats').value,
+    email:   document.getElementById('t-email').value,
+    tel:     document.getElementById('t-tel').value,
+    loc:     document.getElementById('t-loc').value,
+    insta:   document.getElementById('t-insta').value,
+    site:    document.getElementById('t-site').value,
+  };
+  download('textos.json', JSON.stringify(dados, null, 2));
+  toast('textos.json baixado! Faça upload no GitHub para aplicar.');
+}
+
+// ── FOTOS ─────────────────────────────────────────────
+function previewFoto(input, prevId, nomeArquivo) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById(prevId).src = e.target.result;
+    toast('Prévia atualizada! Agora faça upload de "' + nomeArquivo + '" no GitHub.');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── GOOGLE ANALYTICS ─────────────────────────────────
 function salvarGA() {
   const id = document.getElementById('ga-id-input').value.trim();
   if (!id.startsWith('G-')) { alert('ID inválido. Deve começar com G-'); return; }
   localStorage.setItem('ga_id', id);
   renderGA(id);
+  toast('ID do Google Analytics salvo!');
 }
+
 function renderGA(id) {
   document.getElementById('ga-area').innerHTML = `
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">
-      ID configurado: <strong style="color:var(--dark)">${id}</strong>
-    </p>
-    <a href="https://analytics.google.com" target="_blank" class="btn btn-primary" style="text-decoration:none">Abrir Google Analytics</a>
-    <span style="font-size:.75rem;color:var(--muted);cursor:pointer;margin-left:1rem;text-decoration:underline" onclick="localStorage.removeItem('ga_id');location.reload()">Trocar ID</span>`;
-}
-(function(){ const id=localStorage.getItem('ga_id'); if(id) renderGA(id); })();
-
-// ── CONVERSÃO ────────────────────────────────────────
-function paraHTML(txt) {
-  const linhas = txt.split('\n'); let html='', lista=false;
-  for (let l of linhas) {
-    l = l.trim();
-    if (!l) { if(lista){html+='</ul>';lista=false;} continue; }
-    if (l.startsWith('## '))                          { if(lista){html+='</ul>';lista=false;} html+='<h3>'+l.slice(3)+'</h3>'; }
-    else if (l.startsWith('- ')||l.startsWith('* ')) { if(!lista){html+='<ul>';lista=true;}  html+='<li>'+l.slice(2)+'</li>'; }
-    else                                              { if(lista){html+='</ul>';lista=false;} html+='<p>'+l+'</p>'; }
-  }
-  if(lista) html+='</ul>';
-  return html;
-}
-function htmlPara(html) {
-  return html
-    .replace(/<h3>(.*?)<\/h3>/g,'## $1\n')
-    .replace(/<ul>/g,'').replace(/<\/ul>/g,'\n')
-    .replace(/<li>(.*?)<\/li>/g,'- $1\n')
-    .replace(/<p>(.*?)<\/p>/g,'$1\n')
-    .replace(/<[^>]+>/g,'').trim();
+    <div style="background:var(--light);border-radius:10px;padding:1.5rem;text-align:center">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">
+        ID configurado: <strong style="color:var(--dark)">${id}</strong><br>
+        Para ver os dados completos, acesse o painel diretamente:
+      </p>
+      <a href="https://analytics.google.com" target="_blank" class="btn btn-primary" style="text-decoration:none;display:inline-flex">
+        Abrir Google Analytics
+      </a>
+      <br><br>
+      <span style="font-size:.75rem;color:var(--muted);cursor:pointer;text-decoration:underline" onclick="localStorage.removeItem('ga_id');location.reload()">
+        Trocar ID
+      </span>
+    </div>`;
 }
 
-function gerarJS() {
-  let js = '// Gerado pelo Painel Admin - Amanda Reis Advocacia\nwindow.ARTIGOS = [\n\n';
-  ARTIGOS.forEach((a,i) => {
-    js += '  {\n';
-    js += `    id: ${a.id},\n`;
-    js += `    titulo: "${a.titulo.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}",\n`;
-    js += `    categoria: "${a.categoria}",\n`;
-    js += `    data: "${a.data}",\n`;
-    js += `    resumo: "${a.resumo.replace(/\\/g,'\\\\').replace(/"/g,'\\"')}",\n`;
-    js += `    foto: "${a.foto}",\n`;
-    js += `    conteudo: "${a.conteudo.replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\n/g,'')}"\n`;
-    js += '  }' + (i<ARTIGOS.length-1?',':'') + '\n\n';
-  });
-  return js + '];\n';
+// Carregar GA salvo
+(function() {
+  const id = localStorage.getItem('ga_id');
+  if (id) renderGA(id);
+})();
+
+// ── UTILS ─────────────────────────────────────────────
+function download(nome, conteudo) {
+  const a = document.createElement('a');
+  a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
+  a.download = nome;
+  a.click();
 }
 
 function hoje() {
-  const d=new Date();
-  return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  const d = new Date();
+  return String(d.getDate()).padStart(2,'0') + '/' +
+         String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
 }
-function toast(msg, tipo='ok') {
+
+function toast(msg) {
   const t = document.getElementById('toast');
-  t.className = 'toast ' + tipo; t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
 }
-function sair() { sessionStorage.removeItem('admin_auth'); location.href='index.html'; }
-document.getElementById('modal').addEventListener('click', e => { if(e.target.id==='modal') fecharModal(); });
+
+function sair() {
+  sessionStorage.removeItem('admin_auth');
+  window.location.href = 'index.html';
+}
+
+// Fechar modal clicando fora
+document.getElementById('modal-artigo').addEventListener('click', function(e) {
+  if (e.target === this) fecharModal();
+});
 </script>
 </body>
 </html>
