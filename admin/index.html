@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Acesso Restrito</title>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #2D061B; --bege: #E0CCC7; --light: #F3EFEC; --muted: #5C4B57;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .bg-glow {
+      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+    }
+    .bg-glow-1 { width: 400px; height: 400px; background: rgba(92,75,87,.3); top: -100px; right: -100px; }
+    .bg-glow-2 { width: 300px; height: 300px; background: rgba(224,204,199,.08); bottom: -80px; left: -80px; }
+
+    .login-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(224,204,199,.12);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px;
+      backdrop-filter: blur(20px);
+      position: relative; z-index: 1;
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .login-logo img { height: 44px; opacity: .9; }
+    .login-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(224,204,199,.5); text-align: center; margin-bottom: 2.5rem;
+    }
+    .field { margin-bottom: 1.2rem; }
+    .field label {
+      display: block; font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(224,204,199,.6); margin-bottom: .5rem;
+    }
+    .field input {
+      width: 100%; padding: .85rem 1.1rem;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(224,204,199,.15);
+      border-radius: 10px; color: var(--light);
+      font-family: 'Poppins', sans-serif; font-size: .9rem;
+      outline: none; transition: border-color .3s;
+    }
+    .field input:focus { border-color: rgba(224,204,199,.4); }
+    .field input::placeholder { color: rgba(224,204,199,.25); }
+    .btn-login {
+      width: 100%; padding: .95rem;
+      background: var(--bege); color: var(--dark);
+      border: none; border-radius: 50px;
+      font-family: 'Poppins', sans-serif; font-size: .82rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      cursor: pointer; margin-top: .5rem;
+      transition: opacity .3s, transform .3s;
+    }
+    .btn-login:hover { opacity: .88; transform: translateY(-2px); }
+    .erro {
+      background: rgba(200,50,50,.15); border: 1px solid rgba(200,50,50,.3);
+      color: #f8a0a0; border-radius: 8px; padding: .7rem 1rem;
+      font-size: .8rem; text-align: center; margin-top: 1rem;
+      display: none;
+    }
+    .erro.vis { display: block; }
+    .back-link {
+      display: block; text-align: center; margin-top: 1.8rem;
+      font-size: .72rem; color: rgba(224,204,199,.3); text-decoration: none;
+      transition: color .3s;
+    }
+    .back-link:hover { color: rgba(224,204,199,.6); }
+  </style>
+</head>
+<body>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<div class="login-card">
+  <div class="login-logo">
+    <img src="../images/logo.png" alt="Amanda Reis Advocacia"/>
+  </div>
+  <p class="login-title">Painel Administrativo</p>
+
+  <div class="field">
+    <label>Usuário</label>
+    <input type="text" id="usuario" placeholder="seu usuário" autocomplete="username"/>
+  </div>
+  <div class="field">
+    <label>Senha</label>
+    <input type="password" id="senha" placeholder="••••••••" autocomplete="current-password"/>
+  </div>
+  <button class="btn-login" onclick="login()">Entrar</button>
+  <div class="erro" id="erro">Usuário ou senha incorretos.</div>
+  <a href="../index.html" class="back-link">← voltar ao site</a>
+</div>
+
+<script>
+  // ── CREDENCIAIS ──────────────────────────────────────
+  // Para trocar: altere os valores abaixo e reenvie ao Netlify
+  const USUARIO = 'amanda';
+  const SENHA   = 'advocacia2025';
+  // ────────────────────────────────────────────────────
+
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+  function login() {
+    const u = document.getElementById('usuario').value.trim();
+    const s = document.getElementById('senha').value;
+    if (u === USUARIO && s === SENHA) {
+      sessionStorage.setItem('admin_auth', 'ok');
+      window.location.href = 'painel.html';
+    } else {
+      document.getElementById('erro').classList.add('vis');
+      document.getElementById('senha').value = '';
+    }
+  }
+</script>
+</body>
+</html>
