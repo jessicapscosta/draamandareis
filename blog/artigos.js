@@ -94,6 +94,77 @@ window.ARTIGOS = [
       "<p>A guarda compartilhada nao elimina automaticamente a pensao alimenticia. Se houver diferenca de renda significativa entre os pais, o alimentante continuara pagando alimentos.</p>" +
       "<h3>Como formalizar?</h3>" +
       "<p>Com acordo entre os pais, a guarda pode ser formalizada em cartorio ou em juizo. Sem consenso, o juiz decide com base no melhor interesse da crianca.</p>"
+  },
+
+  {
+    id: 4,
+    titulo: "Crimes eleitorais: o que sao, quais as penalidades e como se defender",
+    categoria: "Eleitoral",
+    data: "09/04/2025",
+    resumo: "Com as eleicoes municipais cada vez mais proximas, entender o que configura crime eleitoral e essencial para candidatos, cabos eleitorais e eleitores.",
+    foto: "blog/imagens/crime-eleitoral-candidatura.jpg",
+    conteudo: "<p>O direito eleitoral brasileiro e repleto de regras especificas que, quando violadas, podem gerar desde multas ate a cassacao do mandato ou registro de candidatura. Conhecer essas normas e fundamental para quem atua ou pretende atuar na politica.</p>" +
+      "<h3>O que e considerado crime eleitoral?</h3>" +
+      "<p>Os crimes eleitorais estao previstos principalmente no Codigo Eleitoral (Lei 4.737/1965) e legislacoes complementares. Os mais comuns sao:</p>" +
+      "<ul>" +
+      "<li>Compra de votos (captacao ilicita de sufragio) — art. 41-A da Lei 9.504/97</li>" +
+      "<li>Propaganda eleitoral antecipada ou irregular</li>" +
+      "<li>Uso da maquina publica em beneficio de candidato</li>" +
+      "<li>Abuso de poder economico ou politico</li>" +
+      "<li>Transporte ilegal de eleitores no dia da eleicao</li>" +
+      "<li>Falsidade ideologica eleitoral</li>" +
+      "</ul>" +
+      "<h3>Quais as penalidades?</h3>" +
+      "<p>As sancoes variam conforme a gravidade da conduta. Podem incluir multa, detenção ou reclusa, inelegibilidade por ate 8 anos e cassacao do registro ou diploma do candidato. Nos casos de abuso de poder, a acao pode tramitar na Justica Eleitoral mesmo apos a posse.</p>" +
+      "<h3>Como o acusado pode se defender?</h3>" +
+      "<p>A defesa em processos eleitorais exige agilidade: os prazos sao muito mais curtos do que na Justica comum. E essencial contar com advogada especializada em direito eleitoral desde o primeiro momento da notificacao ou investigacao. A Dra. Amanda Reis atua na defesa de candidatos, partidos e filiados em todas as fases do processo eleitoral.</p>"
+  },
+
+  {
+    id: 5,
+    titulo: "Divorcio e partilha de bens: tudo o que voce precisa saber antes de decidir",
+    categoria: "Familia",
+    data: "23/04/2025",
+    resumo: "O fim de um casamento envolve decisoes que impactam o futuro financeiro e familiar de toda a familia. Entenda seus direitos antes de assinar qualquer documento.",
+    foto: "blog/imagens/divorcio-partilha-bens.jpg",
+    conteudo: "<p>O divorcio e um momento delicado que envolve muito mais do que a dissolucao do vinculo conjugal. A partilha de bens, a guarda dos filhos, os alimentos e a questao do nome sao temas que precisam ser tratados com cuidado juridico e emocional.</p>" +
+      "<h3>Divorcio consensual x litigioso</h3>" +
+      "<p>No divorcio consensual, ambos os conjuges concordam com os termos da separacao. Sem filhos menores ou incapazes, e possivel fazer diretamente em cartorio, com mais rapidez e menos custo. Ja o divorcio litigioso ocorre quando ha conflito sobre guarda, alimentos ou partilha e precisa ser resolvido pela Justica.</p>" +
+      "<h3>Como funciona a partilha de bens?</h3>" +
+      "<p>O regime de bens escolhido no casamento define o que sera partilhado:</p>" +
+      "<ul>" +
+      "<li><strong>Comunhao parcial</strong> (regime padrao): dividem-se os bens adquiridos durante o casamento</li>" +
+      "<li><strong>Comunhao universal</strong>: divide-se praticamente tudo, inclusive bens anteriores ao casamento</li>" +
+      "<li><strong>Separacao de bens</strong>: cada conjuge fica com o que e seu, mas pode haver excecoes</li>" +
+      "<li><strong>Participacao final nos aquestos</strong>: regime intermediario, menos comum</li>" +
+      "</ul>" +
+      "<h3>E os bens que estao no nome de apenas um dos conjuges?</h3>" +
+      "<p>No regime de comunhao parcial, bens adquiridos durante o casamento sao de ambos, mesmo que estejam registrados apenas em um nome. Por isso, e importante fazer um levantamento completo antes de qualquer acordo.</p>" +
+      "<h3>Por que ter acompanhamento juridico?</h3>" +
+      "<p>Acordos feitos sem orientacao profissional frequentemente prejudicam uma das partes — especialmente quando ha imoveis, investimentos, dividas ou participacao em empresas envolvidos. A Dra. Amanda Reis orienta e representa clientes em todas as etapas do divorcio, garantindo que seus direitos sejam respeitados.</p>"
+  },
+
+  {
+    id: 6,
+    titulo: "Rescisao indireta: quando e possivel pedir demissao e receber como se fosse demitido",
+    categoria: "Trabalhista",
+    data: "30/04/2025",
+    resumo: "Poucas pessoas conhecem esse direito, mas ele existe: o trabalhador pode romper o contrato por culpa do empregador e ainda receber todas as verbas rescisorias.",
+    foto: "blog/imagens/rescisao-contrato-trabalho.jpg",
+    conteudo: "<p>A rescisao indireta, prevista no art. 483 da CLT, e o direito do empregado de encerrar o contrato de trabalho quando o empregador descumpre suas obrigacoes legais ou contratuais — e ainda receber como se tivesse sido demitido sem justa causa.</p>" +
+      "<h3>O que pode gerar rescisao indireta?</h3>" +
+      "<ul>" +
+      "<li>Nao pagamento de salarios ou beneficios</li>" +
+      "<li>Assedio moral ou tratamento degradante</li>" +
+      "<li>Exigencia de servicos superiores as forcas do empregado</li>" +
+      "<li>Perigo manifesto de mal consideravel (risco a saude ou seguranca)</li>" +
+      "<li>Descumprimento das obrigacoes do contrato pelo empregador</li>" +
+      "<li>Reducao unilateral do salario ou mudanca das condicoes de trabalho</li>" +
+      "</ul>" +
+      "<h3>O que o trabalhador recebe?</h3>" +
+      "<p>Na rescisao indireta, o empregado tem direito a todas as verbas rescisorias de uma demissao sem justa causa: saldo de salario, aviso previo indenizado, 13o proporcional, ferias proporcionais + 1/3, multa de 40% sobre o FGTS e saque do FGTS, alem do seguro-desemprego.</p>" +
+      "<h3>Como acionar esse direito?</h3>" +
+      "<p>A rescisao indireta deve ser pleiteada na Justica do Trabalho. E fundamental nao pedir demissao antes de ajuizar a acao — a ordem dos atos importa juridicamente. A orientacao de uma advogada trabalhista antes de qualquer movimento e indispensavel para nao perder direitos. Entre em contato com o escritorio da Dra. Amanda Reis para uma avaliacao do seu caso.</p>"
   }
 
 ];
