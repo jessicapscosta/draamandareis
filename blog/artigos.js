@@ -165,6 +165,78 @@ window.ARTIGOS = [
       "<p>Na rescisao indireta, o empregado tem direito a todas as verbas rescisorias de uma demissao sem justa causa: saldo de salario, aviso previo indenizado, 13o proporcional, ferias proporcionais + 1/3, multa de 40% sobre o FGTS e saque do FGTS, alem do seguro-desemprego.</p>" +
       "<h3>Como acionar esse direito?</h3>" +
       "<p>A rescisao indireta deve ser pleiteada na Justica do Trabalho. E fundamental nao pedir demissao antes de ajuizar a acao — a ordem dos atos importa juridicamente. A orientacao de uma advogada trabalhista antes de qualquer movimento e indispensavel para nao perder direitos. Entre em contato com o escritorio da Dra. Amanda Reis para uma avaliacao do seu caso.</p>"
+  },
+
+  {
+    id: 7,
+    titulo: "Aposentadoria por invalidez: quem tem direito e como requerer ao INSS",
+    categoria: "Previdenciario",
+    data: "07/05/2025",
+    resumo: "A aposentadoria por invalidez garante renda ao trabalhador que fica permanentemente incapaz de exercer qualquer atividade. Saiba como solicitar e evitar indeferimentos.",
+    foto: "blog/imagens/aposentadoria-invalidez.jpg",
+    conteudo: "<p>A aposentadoria por invalidez, atualmente denominada <strong>aposentadoria por incapacidade permanente</strong> apos a Reforma da Previdencia (EC 103/2019), e concedida ao segurado que se torna total e definitivamente incapaz para o trabalho.</p>" +
+      "<h3>Quem tem direito?</h3>" +
+      "<p>O trabalhador precisa estar em dia com as contribuicoes ao INSS e comprovar, por pericia medica federal, que a incapacidade e permanente e insuscetivel de reabilitacao para qualquer atividade laborativa. Em geral, exige-se 12 meses de carencia — exceto nos casos de acidente de trabalho ou doencas listadas em portaria especifica, que dispensam carencia.</p>" +
+      "<h3>Qual o valor do beneficio?</h3>" +
+      "<p>Pela regra atual, o beneficio corresponde a <strong>60% da media dos salarios de contribuicao</strong>, acrescido de 2% por ano de contribuicao que exceder 20 anos para homens e 15 anos para mulheres. Segurados que necessitam de assistencia permanente de terceiros recebem adicional de 25%.</p>" +
+      "<h3>Documentos essenciais</h3>" +
+      "<ul>" +
+      "<li>Laudos, exames e historico medico atualizados</li>" +
+      "<li>Carteira de Trabalho e CNIS</li>" +
+      "<li>Documento de identidade e CPF</li>" +
+      "<li>Relatorio do medico assistente detalhando o diagnostico e o prognostico</li>" +
+      "</ul>" +
+      "<h3>O que fazer em caso de indeferimento?</h3>" +
+      "<p>O INSS pode negar o beneficio alegando capacidade residual ou carencia insuficiente. Nesses casos, e possivel recorrer administrativamente ou ajuizar acao na Justica Federal. A Dra. Amanda Reis atua em casos previdenciarios e pode avaliar se o indeferimento foi correto ou se ha fundamento para recurso ou acao judicial.</p>"
+  },
+
+  {
+    id: 8,
+    titulo: "Alienacao parental: como identificar, provar e proteger seu filho",
+    categoria: "Familia",
+    data: "14/05/2025",
+    resumo: "A alienacao parental e uma forma de violencia psicologica contra a crianca e contra o genitor afastado. Entenda o que diz a lei e como agir juridicamente.",
+    foto: "blog/imagens/alienacao-parental.jpg",
+    conteudo: "<p>A alienacao parental ocorre quando um dos genitores — ou qualquer pessoa que tenha a guarda da crianca — interfere na relacao da crianca com o outro genitor, prejudicando o vinculo afetivo de forma deliberada. No Brasil, o tema e regulado pela <strong>Lei 12.318/2010</strong>.</p>" +
+      "<h3>O que caracteriza alienacao parental?</h3>" +
+      "<p>A lei lista exemplos de condutas que configuram alienacao parental:</p>" +
+      "<ul>" +
+      "<li>Dificultar o contato da crianca com o outro genitor sem justificativa</li>" +
+      "<li>Apresentar falsa denuncia de abuso para obstar a convivencia</li>" +
+      "<li>Mudar de domicilio sem comunicacao previa para dificultar o regime de visitas</li>" +
+      "<li>Monitorar a comunicacao da crianca com o outro genitor</li>" +
+      "<li>Fazer a crianca se sentir culpada por gostar do outro genitor</li>" +
+      "</ul>" +
+      "<h3>Quais as consequencias juridicas?</h3>" +
+      "<p>O juiz pode, a qualquer tempo, determinar medidas como advertencia ao alienador, ampliacao do regime de convivencia do genitor prejudicado, fixacao de multa, acompanhamento psicologico obrigatorio e, em casos graves, alteracao da guarda ou suspensao da autoridade parental.</p>" +
+      "<h3>Como provar?</h3>" +
+      "<p>A prova pode ser feita por laudos psicologicos, depoimentos de testemunhas, prints de mensagens, registros de descumprimento de visitas e relatos da propria crianca colhidos por profissional habilitado. Quanto antes se documentar as situacoes, melhor para a defesa dos direitos da crianca e do genitor prejudicado.</p>" +
+      "<h3>Como agir?</h3>" +
+      "<p>Se voce suspeita de alienacao parental, procure orientacao juridica imediatamente. A Dra. Amanda Reis atua em casos de guarda, visitas e alienacao parental, oferecendo suporte tecnico e humanizado para proteger o melhor interesse da crianca.</p>"
+  },
+
+  {
+    id: 9,
+    titulo: "Candidatura laranja: o que e, quais os riscos e como o TSE fiscaliza",
+    categoria: "Eleitoral",
+    data: "21/05/2025",
+    resumo: "A candidatura laranja e considerada fraude eleitoral e pode gerar cassacao, multa e inelegibilidade. Entenda como o tema e tratado pela Justica Eleitoral.",
+    foto: "blog/imagens/candidatura-laranja.jpg",
+    conteudo: "<p>A chamada <strong>candidatura laranja</strong> e uma pratica fraudulenta em que partidos lancam candidatos — geralmente mulheres — sem real intencao de campanha, apenas para cumprir a cota de genero exigida pela legislacao eleitoral. O tema ganhou destaque apos o TSE endurecer a fiscalizacao nos ultimos ciclos eleitorais.</p>" +
+      "<h3>O que diz a lei?</h3>" +
+      "<p>A Lei 9.504/97 determina que cada partido reserve no <strong>minimo 30% das candidaturas para mulheres</strong>. A candidatura laranja surge quando esse percentual e preenchido de forma ficticia, sem que a candidata participe efetivamente da campanha ou receba recursos do fundo partidario.</p>" +
+      "<h3>Quais as consequencias?</h3>" +
+      "<p>O TSE e os TREs podem:</p>" +
+      "<ul>" +
+      "<li>Cassar o registro de todos os candidatos do partido na circunscricao</li>" +
+      "<li>Determinar a devolucao do fundo eleitoral recebido</li>" +
+      "<li>Responsabilizar dirigentes partidarios por abuso de poder</li>" +
+      "<li>Aplicar multas e gerar inelegibilidade futura</li>" +
+      "</ul>" +
+      "<h3>Como o TSE identifica?</h3>" +
+      "<p>A Justica Eleitoral cruza dados de prestacao de contas, movimentacao financeira das candidatas, tempo de propaganda e presenca em eventos. Candidatas que nao receberam recursos, nao fizeram campanha e tiveram votacao zerada ou insignificante entram no radar da fiscalizacao automaticamente.</p>" +
+      "<h3>E quem foi candidata sem saber que era laranja?</h3>" +
+      "<p>Casos existem em que pessoas sao incluidas em chapas sem pleno conhecimento das implicacoes. Mesmo assim, o risco juridico existe. Se voce se encontra nessa situacao ou foi notificada pela Justica Eleitoral, e essencial buscar orientacao especializada com urgencia. A Dra. Amanda Reis atua na defesa em processos eleitorais em todas as instancias.</p>"
   }
 
 ];
