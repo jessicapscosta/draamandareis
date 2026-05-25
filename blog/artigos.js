@@ -173,7 +173,7 @@ window.ARTIGOS = [
     categoria: "Previdenciario",
     data: "07/05/2025",
     resumo: "A aposentadoria por invalidez garante renda ao trabalhador que fica permanentemente incapaz de exercer qualquer atividade. Saiba como solicitar e evitar indeferimentos.",
-    foto: "blog/imagens/aposentadoria-invalidez.jpg",
+    foto: "blog/imagens/aposentadoria-invalidez.png",
     conteudo: "<p>A aposentadoria por invalidez, atualmente denominada <strong>aposentadoria por incapacidade permanente</strong> apos a Reforma da Previdencia (EC 103/2019), e concedida ao segurado que se torna total e definitivamente incapaz para o trabalho.</p>" +
       "<h3>Quem tem direito?</h3>" +
       "<p>O trabalhador precisa estar em dia com as contribuicoes ao INSS e comprovar, por pericia medica federal, que a incapacidade e permanente e insuscetivel de reabilitacao para qualquer atividade laborativa. Em geral, exige-se 12 meses de carencia — exceto nos casos de acidente de trabalho ou doencas listadas em portaria especifica, que dispensam carencia.</p>" +
@@ -196,7 +196,7 @@ window.ARTIGOS = [
     categoria: "Familia",
     data: "14/05/2025",
     resumo: "A alienacao parental e uma forma de violencia psicologica contra a crianca e contra o genitor afastado. Entenda o que diz a lei e como agir juridicamente.",
-    foto: "blog/imagens/alienacao-parental.jpg",
+    foto: "blog/imagens/alienacao-parental.png",
     conteudo: "<p>A alienacao parental ocorre quando um dos genitores — ou qualquer pessoa que tenha a guarda da crianca — interfere na relacao da crianca com o outro genitor, prejudicando o vinculo afetivo de forma deliberada. No Brasil, o tema e regulado pela <strong>Lei 12.318/2010</strong>.</p>" +
       "<h3>O que caracteriza alienacao parental?</h3>" +
       "<p>A lei lista exemplos de condutas que configuram alienacao parental:</p>" +
@@ -221,7 +221,7 @@ window.ARTIGOS = [
     categoria: "Eleitoral",
     data: "21/05/2025",
     resumo: "A candidatura laranja e considerada fraude eleitoral e pode gerar cassacao, multa e inelegibilidade. Entenda como o tema e tratado pela Justica Eleitoral.",
-    foto: "blog/imagens/candidatura-laranja.jpg",
+    foto: "blog/imagens/candidatura-laranja.png",
     conteudo: "<p>A chamada <strong>candidatura laranja</strong> e uma pratica fraudulenta em que partidos lancam candidatos — geralmente mulheres — sem real intencao de campanha, apenas para cumprir a cota de genero exigida pela legislacao eleitoral. O tema ganhou destaque apos o TSE endurecer a fiscalizacao nos ultimos ciclos eleitorais.</p>" +
       "<h3>O que diz a lei?</h3>" +
       "<p>A Lei 9.504/97 determina que cada partido reserve no <strong>minimo 30% das candidaturas para mulheres</strong>. A candidatura laranja surge quando esse percentual e preenchido de forma ficticia, sem que a candidata participe efetivamente da campanha ou receba recursos do fundo partidario.</p>" +
