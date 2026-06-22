@@ -237,6 +237,88 @@ window.ARTIGOS = [
       "<p>A Justica Eleitoral cruza dados de prestacao de contas, movimentacao financeira das candidatas, tempo de propaganda e presenca em eventos. Candidatas que nao receberam recursos, nao fizeram campanha e tiveram votacao zerada ou insignificante entram no radar da fiscalizacao automaticamente.</p>" +
       "<h3>E quem foi candidata sem saber que era laranja?</h3>" +
       "<p>Casos existem em que pessoas sao incluidas em chapas sem pleno conhecimento das implicacoes. Mesmo assim, o risco juridico existe. Se voce se encontra nessa situacao ou foi notificada pela Justica Eleitoral, e essencial buscar orientacao especializada com urgencia. A Dra. Amanda Reis atua na defesa em processos eleitorais em todas as instancias.</p>"
+  },
+
+  {
+    id: 10,
+    titulo: "Auxilio-doenca: quando o INSS e obrigado a pagar e como evitar o indeferimento",
+    categoria: "Previdenciario",
+    data: "28/05/2025",
+    resumo: "O auxilio-doenca e um dos beneficios mais negados pelo INSS. Entenda os requisitos, como se preparar para a pericia e o que fazer se for indeferido.",
+    foto: "blog/imagens/auxilio-doenca.png",
+    conteudo: "<p>O auxilio-doenca — atualmente chamado de <strong>beneficio por incapacidade temporaria</strong> apos a Reforma da Previdencia — e devido ao segurado que fica temporariamente incapaz de trabalhar por motivo de doenca ou acidente. Apesar de ser um direito claro, o indeferimento e um dos mais frequentes na pratica do INSS.</p>" +
+      "<h3>Quem tem direito?</h3>" +
+      "<p>Para receber o beneficio, o segurado precisa cumprir tres requisitos basicos: estar em dia com as contribuicoes ao INSS, ter cumprido a carencia de 12 meses (exceto nos casos de acidente ou doencas listadas em portaria que dispensam carencia) e comprovar a incapacidade por pericia medica federal.</p>" +
+      "<h3>Como e feita a pericia?</h3>" +
+      "<p>A pericia e realizada por medico do proprio INSS. O segurado deve levar todos os laudos, exames e relatorios medicos atualizados, com descricao clara do diagnostico (CID), evolucao da doenca e estimativa de afastamento. Documentacao incompleta e a principal causa de indeferimento.</p>" +
+      "<h3>E se o beneficio for indeferido ou cortado?</h3>" +
+      "<p>E possivel recorrer administrativamente pelo portal Meu INSS ou ajuizar acao na Justica Federal. Em muitos casos, a pericia judicial reverte o resultado da pericia administrativa. A Dra. Amanda Reis atua em recursos e acoes previdenciarias para garantir o beneficio a quem tem direito.</p>"
+  },
+
+  {
+    id: 11,
+    titulo: "Horas extras nao pagas: como calcular, provar e cobrar na Justica do Trabalho",
+    categoria: "Trabalhista",
+    data: "04/06/2025",
+    resumo: "Muitos trabalhadores fazem horas extras sem receber o adicional correto. Saiba como calcular o valor devido, quais provas reunir e como acionar a Justica.",
+    foto: "blog/imagens/horas-extras.png",
+    conteudo: "<p>A nao remuneracao de horas extras e uma das irregularidades trabalhistas mais comuns no Brasil — e tambem uma das mais cobradas na Justica do Trabalho. O trabalhador que ficou sem receber pode buscar esses valores retroativamente por ate dois anos apos o fim do contrato.</p>" +
+      "<h3>O que sao horas extras?</h3>" +
+      "<p>E toda hora trabalhada alem da jornada contratual ou do limite legal de 8 horas diarias e 44 horas semanais. O adicional minimo e de <strong>50% sobre o valor da hora normal</strong>, podendo ser maior se o contrato ou a convencao coletiva prever.</p>" +
+      "<h3>Como calcular?</h3>" +
+      "<p>Divida o salario mensal por 220 (horas mensais padrao) para obter o valor da hora normal. Multiplique por 1,5 (ou pelo percentual cabivel) para obter o valor da hora extra. Multiplique pelo numero de horas nao pagas e chegara ao total devido — acrescido de reflexos em ferias, 13o, FGTS e descanso semanal remunerado.</p>" +
+      "<h3>Como provar?</h3>" +
+      "<p>Cartoes de ponto, e-mails fora do horario, mensagens de WhatsApp, registros de acesso ao sistema e testemunhas sao as principais formas de prova. Se o empregador nao tiver controle de jornada (obrigatorio para empresas com mais de 20 empregados), a jornada alegada pelo trabalhador pode ser presumida verdadeira.</p>" +
+      "<h3>Como cobrar?</h3>" +
+      "<p>A acao deve ser ajuizada na Vara do Trabalho da cidade onde o empregado prestou servicos. O prazo e de ate 2 anos apos o fim do contrato, com direito de cobrar os ultimos 5 anos do periodo trabalhado. A Dra. Amanda Reis pode avaliar seu caso e estimar os valores a receber antes mesmo de ajuizar a acao.</p>"
+  },
+
+  {
+    id: 12,
+    titulo: "Uniao estavel: direitos, reconhecimento e diferencas em relacao ao casamento",
+    categoria: "Familia",
+    data: "11/06/2025",
+    resumo: "A uniao estavel garante direitos semelhantes ao casamento, mas existem diferencas importantes. Entenda como reconhecer, comprovar e proteger essa relacao juridicamente.",
+    foto: "blog/imagens/uniao-estavel.png",
+    conteudo: "<p>A uniao estavel e reconhecida pela Constituicao Federal como entidade familiar e garante uma serie de direitos ao casal — mas ainda existem diferencas relevantes em relacao ao casamento civil que todo companheiro precisa conhecer.</p>" +
+      "<h3>O que caracteriza uniao estavel?</h3>" +
+      "<p>Segundo o Codigo Civil, a uniao estavel e a convivencia publica, continua e duradoura entre duas pessoas, com o objetivo de constituir familia. Nao ha prazo minimo definido em lei — o que importa e a intencao do casal e as circunstancias da relacao.</p>" +
+      "<h3>Quais os principais direitos?</h3>" +
+      "<ul>" +
+      "<li>Direito a heranca (com algumas diferencas em relacao ao casamento, dependendo do regime de bens)</li>" +
+      "<li>Direito a partilha dos bens adquiridos durante a uniao (regime padrao: comunhao parcial)</li>" +
+      "<li>Direito a alimentos em caso de dissolucao</li>" +
+      "<li>Inclusao como dependente em plano de saude e previdencia</li>" +
+      "<li>Direito a pensao por morte junto ao INSS</li>" +
+      "</ul>" +
+      "<h3>Como comprovar a uniao estavel?</h3>" +
+      "<p>A prova pode ser feita por contrato de uniao estavel lavrado em cartorio, declaracao de imposto de renda com dependente, contas conjuntas, correspondencias no mesmo endereco e testemunhas. O contrato em cartorio e a forma mais segura de formalizar a relacao e definir o regime de bens.</p>" +
+      "<h3>Por que formalizar?</h3>" +
+      "<p>Sem formalizacao, eventuais conflitos sobre heranca, partilha e alimentos precisam ser resolvidos na Justica, com mais custo e incerteza. A Dra. Amanda Reis orienta casais na elaboracao de contratos de uniao estavel e na defesa de direitos em caso de dissolucao.</p>"
+  },
+
+  {
+    id: 13,
+    titulo: "Propaganda eleitoral antecipada: o que e permitido e o que pode gerar multa ou cassacao",
+    categoria: "Eleitoral",
+    data: "18/06/2025",
+    resumo: "Com as eleicoes de 2026 no radar, candidatos e partidos ja precisam estar atentos: propaganda antecipada e uma das infrações eleitorais mais comuns e pode custar caro.",
+    foto: "blog/imagens/propaganda-eleitoral-antecipada.png",
+    conteudo: "<p>A propaganda eleitoral no Brasil so pode ser feita a partir de <strong>15 de agosto do ano eleitoral</strong>, conforme o art. 36 da Lei 9.504/97. Antes disso, qualquer ato que configure pedido explicito de voto ou promova candidatura de forma vedada pode ser enquadrado como propaganda eleitoral antecipada.</p>" +
+      "<h3>O que e permitido antes do periodo eleitoral?</h3>" +
+      "<p>A lei permite manifestacoes de filiacao partidaria, mencao a possiveis candidaturas de forma nao ostensiva, participacao em eventos publicos com finalidade nao eleitoral e publicacao de realizacoes de mandatos em exercicio — desde que sem pedido de voto.</p>" +
+      "<h3>O que e vedado?</h3>" +
+      "<ul>" +
+      "<li>Pedido explicito de voto antes do periodo permitido</li>" +
+      "<li>Distribuicao de brindes, camisetas ou material com nome e foto do candidato</li>" +
+      "<li>Uso de outdoors, carros de som ou panfletagem com fins eleitorais</li>" +
+      "<li>Impulsionamento pago de publicacoes em redes sociais com cunho eleitoral</li>" +
+      "<li>Eventos patrocinados por candidatos com distribuicao de beneficios</li>" +
+      "</ul>" +
+      "<h3>Quais as consequencias?</h3>" +
+      "<p>A propaganda antecipada pode gerar multa de R$ 5.000 a R$ 25.000 por irregularidade, alem de representacao perante a Justica Eleitoral. Em casos graves envolvendo abuso de poder economico, pode resultar em inelegibilidade ou cassacao do registro de candidatura.</p>" +
+      "<h3>Como se proteger?</h3>" +
+      "<p>Candidatos e pre-candidatos devem submeter suas acoes de comunicacao a analise juridica antes de publicar ou distribuir qualquer material. A Dra. Amanda Reis assessora candidatos e partidos em compliance eleitoral, evitando infrações que possam comprometer a candidatura.</p>"
   }
 
 ];
