@@ -319,6 +319,85 @@ window.ARTIGOS = [
       "<p>A propaganda antecipada pode gerar multa de R$ 5.000 a R$ 25.000 por irregularidade, alem de representacao perante a Justica Eleitoral. Em casos graves envolvendo abuso de poder economico, pode resultar em inelegibilidade ou cassacao do registro de candidatura.</p>" +
       "<h3>Como se proteger?</h3>" +
       "<p>Candidatos e pre-candidatos devem submeter suas acoes de comunicacao a analise juridica antes de publicar ou distribuir qualquer material. A Dra. Amanda Reis assessora candidatos e partidos em compliance eleitoral, evitando infrações que possam comprometer a candidatura.</p>"
+  },
+
+  {
+    id: 14,
+    titulo: "Pensao por morte do INSS: quem tem direito e como solicitar o beneficio",
+    categoria: "Previdenciario",
+    data: "29/06/2026",
+    resumo: "A pensao por morte garante renda aos dependentes do segurado falecido, mas as regras de calculo e duracao mudaram apos a Reforma da Previdencia. Saiba quem tem direito e como evitar o indeferimento.",
+    foto: "blog/imagens/pensao-por-morte-inss.jpg",
+    conteudo: "<p>A pensao por morte e o beneficio pago aos dependentes do segurado do INSS que falece, esteja ele aposentado ou em atividade. Apos a Reforma da Previdencia (EC 103/2019), o calculo do valor e o tempo de duracao do beneficio mudaram, o que ainda gera muitas duvidas entre as familias.</p>" +
+      "<h3>Quem sao os dependentes?</h3>" +
+      "<p>A lei divide os dependentes em classes, sendo que a existencia de dependentes de uma classe exclui as demais:</p>" +
+      "<ul>" +
+      "<li>Conjuge ou companheiro(a), inclusive em uniao estavel</li>" +
+      "<li>Filhos menores de 21 anos ou invalidos</li>" +
+      "<li>Pais, quando comprovada a dependencia economica</li>" +
+      "<li>Irmaos menores de 21 anos ou invalidos, na ausencia dos anteriores</li>" +
+      "</ul>" +
+      "<h3>Como e calculado o valor?</h3>" +
+      "<p>Desde a reforma, a pensao corresponde a <strong>50% do valor da aposentadoria do segurado, acrescido de 10% por dependente habilitado</strong>, ate o limite de 100% para cinco ou mais dependentes. Para conjuges e companheiros, a duracao do beneficio varia conforme a idade na data do obito e o tempo de uniao ou casamento.</p>" +
+      "<h3>Documentos necessarios</h3>" +
+      "<ul>" +
+      "<li>Certidao de obito</li>" +
+      "<li>Documentos pessoais do segurado e dos dependentes</li>" +
+      "<li>Certidao de casamento ou comprovantes de uniao estavel</li>" +
+      "<li>CNIS do segurado falecido</li>" +
+      "</ul>" +
+      "<h3>O que fazer em caso de indeferimento?</h3>" +
+      "<p>O INSS costuma negar o beneficio quando a uniao estavel nao esta formalizada ou quando faltam provas da dependencia economica. Nesses casos, e possivel recorrer administrativamente ou ajuizar acao na Justica Federal. A Dra. Amanda Reis orienta familias na solicitacao e na defesa judicial da pensao por morte.</p>"
+  },
+
+  {
+    id: 15,
+    titulo: "Demissao por justa causa: quando e valida e como o trabalhador pode se defender",
+    categoria: "Trabalhista",
+    data: "06/07/2026",
+    resumo: "A demissao por justa causa retira diversos direitos do trabalhador e so pode ser aplicada em hipoteses previstas em lei. Entenda os motivos validos e como contestar uma justa causa aplicada de forma indevida.",
+    foto: "blog/imagens/justa-causa-trabalho.jpg",
+    conteudo: "<p>A demissao por justa causa e a penalidade mais grave prevista na CLT para o empregado e so pode ser aplicada em hipoteses taxativamente listadas em lei. Aplicada de forma indevida, ela pode e deve ser contestada na Justica do Trabalho.</p>" +
+      "<h3>Quais sao os motivos previstos em lei?</h3>" +
+      "<p>O art. 482 da CLT lista as hipoteses de justa causa, entre elas:</p>" +
+      "<ul>" +
+      "<li>Improbidade (desonestidade, furto, fraude)</li>" +
+      "<li>Incontinencia de conduta ou mau procedimento</li>" +
+      "<li>Desidia no desempenho das funcoes</li>" +
+      "<li>Embriaguez habitual ou em servico</li>" +
+      "<li>Indisciplina ou insubordinacao</li>" +
+      "<li>Abandono de emprego</li>" +
+      "<li>Ato lesivo a honra ou a boa fama praticado contra o empregador ou colegas</li>" +
+      "</ul>" +
+      "<h3>O que o trabalhador perde com a justa causa?</h3>" +
+      "<p>Ao contrario da demissao sem justa causa, o empregado demitido por justa causa nao recebe aviso previo, 13o proporcional, ferias proporcionais, multa de 40% do FGTS, nem tem acesso ao saque do FGTS ou ao seguro-desemprego. Mantem apenas o saldo de salario e as ferias vencidas, se houver.</p>" +
+      "<h3>Como contestar uma justa causa indevida?</h3>" +
+      "<p>Cabe ao empregador provar a falta grave cometida pelo empregado, com testemunhas e documentos que comprovem a conduta e sua gravidade. Quando a justa causa e aplicada sem provas solidas ou de forma desproporcional, e possivel ajuizar acao trabalhista para reverte-la em demissao sem justa causa, com direito a todas as verbas rescisorias.</p>" +
+      "<h3>Como agir?</h3>" +
+      "<p>Se voce foi demitido por justa causa e acredita que a penalidade foi aplicada de forma injusta, procure orientacao juridica o quanto antes. A Dra. Amanda Reis avalia o caso e atua na reversao judicial de justas causas aplicadas indevidamente.</p>"
+  },
+
+  {
+    id: 16,
+    titulo: "Pensao alimenticia: como e definido o valor e o que fazer em caso de atraso",
+    categoria: "Familia",
+    data: "13/07/2026",
+    resumo: "A pensao alimenticia e um direito da crianca e um dever legal dos pais. Entenda como o valor e calculado e quais medidas podem ser tomadas quando o pagamento atrasa.",
+    foto: "blog/imagens/pensao-alimenticia.jpg",
+    conteudo: "<p>A pensao alimenticia e o valor destinado a garantir as necessidades basicas de quem nao pode prove-las sozinho, geralmente filhos menores, mas tambem pode ser devida entre ex-conjuges ou companheiros em determinadas situacoes.</p>" +
+      "<h3>Como e definido o valor?</h3>" +
+      "<p>Nao ha um percentual fixo em lei. O juiz considera o chamado <strong>trinomio necessidade-possibilidade-proporcionalidade</strong>: as necessidades de quem recebe, a capacidade financeira de quem paga e a proporcionalidade entre os dois. Na pratica, os valores costumam variar entre 20% e 30% dos rendimentos do alimentante quando ha vinculo empregaticio formal.</p>" +
+      "<h3>O que fazer em caso de atraso no pagamento?</h3>" +
+      "<p>O nao pagamento da pensao alimenticia pode ser cobrado por meio de execucao de alimentos. Duas vias sao possiveis:</p>" +
+      "<ul>" +
+      "<li>Execucao com possibilidade de prisao civil do devedor, para as tres ultimas parcelas vencidas</li>" +
+      "<li>Execucao por penhora de bens e valores, para debitos mais antigos</li>" +
+      "</ul>" +
+      "<p>Tambem e possivel solicitar o protesto do devedor e a inclusao do nome em cadastros de inadimplentes.</p>" +
+      "<h3>Ate quando dura a obrigacao?</h3>" +
+      "<p>Em regra, a pensao alimenticia e devida ate os 18 anos do filho, podendo se estender ate os 24 anos se ele estiver cursando ensino superior e comprovar a necessidade de continuar recebendo o auxilio.</p>" +
+      "<h3>Como agir?</h3>" +
+      "<p>Seja para fixar, revisar ou cobrar uma pensao alimenticia em atraso, o acompanhamento juridico evita perda de prazos e garante que o valor seja compativel com as necessidades reais da crianca. A Dra. Amanda Reis atua na fixacao, revisao e execucao de pensao alimenticia.</p>"
   }
 
 ];
