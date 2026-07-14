@@ -4,6 +4,11 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Artigo | Amanda Reis Advocacia</title>
+  <meta name="description" content="Artigo jurídico da Dra. Amanda Reis, advogada em Padre Bernardo-GO com atuação em Goiás e no Distrito Federal."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Amanda Reis Advocacia"/>
+  <meta property="og:locale" content="pt_BR"/>
   
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico"/>
@@ -186,6 +191,21 @@
     }
 
     document.title = `${artigo.titulo} | Amanda Reis Advocacia`;
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && artigo.resumo) metaDesc.setAttribute('content', artigo.resumo);
+    const ogTitle = document.createElement('meta');
+    ogTitle.setAttribute('property','og:title');
+    ogTitle.setAttribute('content', artigo.titulo);
+    document.head.appendChild(ogTitle);
+    const ogDesc = document.createElement('meta');
+    ogDesc.setAttribute('property','og:description');
+    ogDesc.setAttribute('content', artigo.resumo || '');
+    document.head.appendChild(ogDesc);
+    const canonical = document.createElement('link');
+    canonical.setAttribute('rel','canonical');
+    canonical.setAttribute('href', `https://draamandareis.com.br/blog/artigo.html?id=${artigo.id}`);
+    document.head.appendChild(canonical);
 
     const outros = artigos.filter(a => a.id !== artigo.id).slice(-3).reverse();
     const imgSrc = artigo.foto ? `../${artigo.foto}` : '';
