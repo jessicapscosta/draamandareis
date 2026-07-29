@@ -406,7 +406,7 @@ window.ARTIGOS = [
     categoria: "Eleitoral",
     data: "29/07/2026",
     resumo: "Com as convencoes partidarias em andamento e o registro de candidaturas se encerrando em 15 de agosto, veja os documentos exigidos, os prazos oficiais e os erros que mais levam ao indeferimento.",
-    foto: "blog/imagens/registro-candidatura.jpg",
+    foto: "blog/imagens/registro-candidatura.png",
     conteudo: "<p>Com as Eleicoes Gerais de 2026 marcadas para 4 de outubro, o calendario eleitoral ja esta em andamento e o prazo para o registro de candidaturas se aproxima. Entender os documentos exigidos e os prazos evita que uma candidatura seja barrada antes mesmo do inicio da campanha.</p>" +
       "<h3>Quem precisa se registrar</h3>" +
       "<p>Todo cidadao escolhido em convencao partidaria para concorrer a presidente, governador, senador, deputado federal ou deputado estadual/distrital precisa ter sua candidatura formalmente registrada na Justica Eleitoral, ainda que ja tenha disputado eleicoes anteriores.</p>" +
