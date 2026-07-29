@@ -398,6 +398,40 @@ window.ARTIGOS = [
       "<p>Em regra, a pensao alimenticia e devida ate os 18 anos do filho, podendo se estender ate os 24 anos se ele estiver cursando ensino superior e comprovar a necessidade de continuar recebendo o auxilio.</p>" +
       "<h3>Como agir?</h3>" +
       "<p>Seja para fixar, revisar ou cobrar uma pensao alimenticia em atraso, o acompanhamento juridico evita perda de prazos e garante que o valor seja compativel com as necessidades reais da crianca. A Dra. Amanda Reis atua na fixacao, revisao e execucao de pensao alimenticia.</p>"
+  },
+
+  {
+    id: 17,
+    titulo: "Registro de candidatura nas Eleicoes 2026: prazos, documentos e motivos de indeferimento",
+    categoria: "Eleitoral",
+    data: "29/07/2026",
+    resumo: "Com as convencoes partidarias em andamento e o registro de candidaturas se encerrando em 15 de agosto, veja os documentos exigidos, os prazos oficiais e os erros que mais levam ao indeferimento.",
+    foto: "",
+    conteudo: "<p>Com as Eleicoes Gerais de 2026 marcadas para 4 de outubro, o calendario eleitoral ja esta em andamento e o prazo para o registro de candidaturas se aproxima. Entender os documentos exigidos e os prazos evita que uma candidatura seja barrada antes mesmo do inicio da campanha.</p>" +
+      "<h3>Quem precisa se registrar</h3>" +
+      "<p>Todo cidadao escolhido em convencao partidaria para concorrer a presidente, governador, senador, deputado federal ou deputado estadual/distrital precisa ter sua candidatura formalmente registrada na Justica Eleitoral, ainda que ja tenha disputado eleicoes anteriores.</p>" +
+      "<h3>Documentos necessarios</h3>" +
+      "<ul>" +
+      "<li>Copia da ata da convencao partidaria</li>" +
+      "<li>Certidao de quitacao eleitoral</li>" +
+      "<li>Certidoes criminais (estadual e federal)</li>" +
+      "<li>Declaracao de bens</li>" +
+      "<li>Comprovante de filiacao partidaria e de domicilio eleitoral</li>" +
+      "<li>Fotografia recente no padrao exigido pelo TSE</li>" +
+      "<li>Proposta de governo ou plano de trabalho, quando exigida pelo cargo</li>" +
+      "</ul>" +
+      "<h3>Prazos do calendario eleitoral 2026</h3>" +
+      "<ul>" +
+      "<li><strong>20/07 a 05/08:</strong> periodo de convencoes partidarias para escolha de candidatos e coligacoes</li>" +
+      "<li><strong>15/08:</strong> ultimo dia para o registro das candidaturas na Justica Eleitoral</li>" +
+      "<li><strong>16/08:</strong> inicio oficial da propaganda eleitoral</li>" +
+      "<li><strong>04/10:</strong> primeiro turno das eleicoes (segundo turno em 25/10, se necessario)</li>" +
+      "</ul>" +
+      "<h3>Motivos mais comuns de indeferimento</h3>" +
+      "<p>A Justica Eleitoral pode negar o registro por documentacao incompleta, pendencias na prestacao de contas de campanhas anteriores, condenacoes que geram inelegibilidade (Lei da Ficha Limpa) ou divergencias entre os dados declarados e os registros oficiais. Muitos casos poderiam ser evitados com uma analise juridica previa.</p>" +
+      "<h3>Como recorrer em caso de indeferimento</h3>" +
+      "<p>Se o registro for indeferido, o candidato pode recorrer ao Tribunal Regional Eleitoral e, em ultima instancia, ao Tribunal Superior Eleitoral. Os prazos recursais sao curtos, por isso a atuacao rapida de uma advogada especializada e essencial para nao perder o direito de concorrer.</p>" +
+      "<p>A Dra. Amanda Reis assessora candidatos, partidos e coligacoes durante todo o processo de registro de candidatura, da conferencia documental ate a eventual defesa em recursos, reduzindo o risco de indeferimento nas Eleicoes 2026.</p>"
   }
 
 ];
