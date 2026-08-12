@@ -432,8 +432,7 @@ window.ARTIGOS = [
       "<h3>Como recorrer em caso de indeferimento</h3>" +
       "<p>Se o registro for indeferido, o candidato pode recorrer ao Tribunal Regional Eleitoral e, em ultima instancia, ao Tribunal Superior Eleitoral. Os prazos recursais sao curtos, por isso a atuacao rapida de uma advogada especializada e essencial para nao perder o direito de concorrer.</p>" +
       "<p>A Dra. Amanda Reis assessora candidatos, partidos e coligacoes durante todo o processo de registro de candidatura, da conferencia documental ate a eventual defesa em recursos, reduzindo o risco de indeferimento nas Eleicoes 2026.</p>"
-  }
-
+  },
 
   {
     id: 18,
