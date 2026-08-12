@@ -1,0 +1,43 @@
+name: Publicar artigo semanal do blog
+
+on:
+  schedule:
+    # Toda quarta-feira as 08:00 (horario de Brasilia = UTC-3 -> 11:00 UTC)
+    - cron: '0 11 * * 3'
+  workflow_dispatch: {}   # permite rodar manualmente pela aba "Actions" quando quiser
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Gerar e inserir o artigo da semana
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/publicar-artigo.js
+
+      - name: Commitar e publicar alteracoes
+        run: |
+          git config user.name "Robo do Blog"
+          git config user.email "actions@users.noreply.github.com"
+          git add blog/artigos.js sitemap.xml scripts/fila-artigos.json
+          if git diff --cached --quiet; then
+            echo "Nada novo para publicar."
+          else
+            git commit -m "Publicacao automatica: novo artigo do blog"
+            git push
+          fi
