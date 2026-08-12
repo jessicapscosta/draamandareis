@@ -210,7 +210,7 @@
   });
 
   function cardHTML(a) {
-    const imgSrc = a.foto ? `../${a.foto}` : '';
+    const imgSrc = a.foto ? (/^https?:\/\//.test(a.foto) ? a.foto : `../${a.foto}`) : '';
     return `
       <a href="artigo.html?id=${a.id}" class="blog-card">
         ${imgSrc

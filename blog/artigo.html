@@ -197,7 +197,7 @@
     }
 
     const canonicalUrl = `https://draamandareis.com.br/blog/artigo.html?id=${artigo.id}`;
-    const ogImageUrl = artigo.foto ? `https://draamandareis.com.br/${artigo.foto}` : 'https://draamandareis.com.br/images/foto_amanda.png';
+    const ogImageUrl = artigo.foto ? (/^https?:\/\//.test(artigo.foto) ? artigo.foto : `https://draamandareis.com.br/${artigo.foto}`) : 'https://draamandareis.com.br/images/foto_amanda.png';
 
     function setMeta(attr, key, content) {
       let el = document.querySelector(`meta[${attr}="${key}"]`);
@@ -266,7 +266,7 @@
     document.head.appendChild(breadcrumbSchema);
 
     const outros = artigos.filter(a => a.id !== artigo.id).slice(-3).reverse();
-    const imgSrc = artigo.foto ? `../${artigo.foto}` : '';
+    const imgSrc = artigo.foto ? (/^https?:\/\//.test(artigo.foto) ? artigo.foto : `../${artigo.foto}`) : '';
 
     root.innerHTML = `
       <section class="artigo-hero">
