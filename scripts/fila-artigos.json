@@ -1,23 +1,82 @@
 [
-  { "categoria": "Previdenciario", "titulo": "Revisao da vida toda: o que e e quem ainda pode pedir" },
-  { "categoria": "Trabalhista", "titulo": "Acidente de trabalho: direitos, estabilidade e responsabilidade da empresa" },
-  { "categoria": "Familia", "titulo": "Inventario e partilha de bens: como funciona apos o falecimento" },
-  { "categoria": "Eleitoral", "titulo": "Prestacao de contas de campanha: regras e riscos de irregularidade" },
-  { "categoria": "Previdenciario", "titulo": "BPC/LOAS: quem tem direito ao beneficio assistencial e como solicitar" },
-  { "categoria": "Trabalhista", "titulo": "Banco de horas: regras, compensacao e riscos para o trabalhador" },
-  { "categoria": "Familia", "titulo": "Adocao no Brasil: etapas do processo e requisitos legais" },
-  { "categoria": "Eleitoral", "titulo": "Propaganda eleitoral irregular nas redes sociais: o que pode dar multa" },
-  { "categoria": "Previdenciario", "titulo": "Aposentadoria rural: requisitos e documentos para trabalhadores do campo" },
-  { "categoria": "Trabalhista", "titulo": "Acordo de rescisao (demissao consensual): o que muda nos seus direitos" },
-  { "categoria": "Familia", "titulo": "Tutela e curatela: entenda as diferencas e quando sao necessarias" },
-  { "categoria": "Eleitoral", "titulo": "Inelegibilidade e Lei da Ficha Limpa: o que impede uma candidatura" },
-  { "categoria": "Previdenciario", "titulo": "Aposentadoria especial: direito de quem trabalha exposto a agentes nocivos" },
-  { "categoria": "Trabalhista", "titulo": "Trabalho remoto: quais direitos trabalhistas continuam valendo" },
-  { "categoria": "Familia", "titulo": "Reconhecimento de paternidade e exame de DNA: como funciona o processo" },
-  { "categoria": "Eleitoral", "titulo": "Condutas vedadas a agentes publicos em ano eleitoral" },
-  { "categoria": "Previdenciario", "titulo": "Acumulo de beneficios previdenciarios: quando e permitido pelo INSS" },
-  { "categoria": "Trabalhista", "titulo": "Adicional de insalubridade e periculosidade: quem tem direito e como calcular" },
-  { "categoria": "Familia", "titulo": "Multiparentalidade: quando a lei reconhece mais de dois pais ou maes" },
-  { "categoria": "Eleitoral", "titulo": "Direito de resposta e horario eleitoral gratuito: como funcionam" },
-  { "categoria": "Previdenciario", "titulo": "Auxilio-acidente: em que casos e devido e como difere do auxilio-doenca" }
+  {
+    "categoria": "Trabalhista",
+    "titulo": "Acidente de trabalho: direitos, estabilidade e responsabilidade da empresa"
+  },
+  {
+    "categoria": "Familia",
+    "titulo": "Inventario e partilha de bens: como funciona apos o falecimento"
+  },
+  {
+    "categoria": "Eleitoral",
+    "titulo": "Prestacao de contas de campanha: regras e riscos de irregularidade"
+  },
+  {
+    "categoria": "Previdenciario",
+    "titulo": "BPC/LOAS: quem tem direito ao beneficio assistencial e como solicitar"
+  },
+  {
+    "categoria": "Trabalhista",
+    "titulo": "Banco de horas: regras, compensacao e riscos para o trabalhador"
+  },
+  {
+    "categoria": "Familia",
+    "titulo": "Adocao no Brasil: etapas do processo e requisitos legais"
+  },
+  {
+    "categoria": "Eleitoral",
+    "titulo": "Propaganda eleitoral irregular nas redes sociais: o que pode dar multa"
+  },
+  {
+    "categoria": "Previdenciario",
+    "titulo": "Aposentadoria rural: requisitos e documentos para trabalhadores do campo"
+  },
+  {
+    "categoria": "Trabalhista",
+    "titulo": "Acordo de rescisao (demissao consensual): o que muda nos seus direitos"
+  },
+  {
+    "categoria": "Familia",
+    "titulo": "Tutela e curatela: entenda as diferencas e quando sao necessarias"
+  },
+  {
+    "categoria": "Eleitoral",
+    "titulo": "Inelegibilidade e Lei da Ficha Limpa: o que impede uma candidatura"
+  },
+  {
+    "categoria": "Previdenciario",
+    "titulo": "Aposentadoria especial: direito de quem trabalha exposto a agentes nocivos"
+  },
+  {
+    "categoria": "Trabalhista",
+    "titulo": "Trabalho remoto: quais direitos trabalhistas continuam valendo"
+  },
+  {
+    "categoria": "Familia",
+    "titulo": "Reconhecimento de paternidade e exame de DNA: como funciona o processo"
+  },
+  {
+    "categoria": "Eleitoral",
+    "titulo": "Condutas vedadas a agentes publicos em ano eleitoral"
+  },
+  {
+    "categoria": "Previdenciario",
+    "titulo": "Acumulo de beneficios previdenciarios: quando e permitido pelo INSS"
+  },
+  {
+    "categoria": "Trabalhista",
+    "titulo": "Adicional de insalubridade e periculosidade: quem tem direito e como calcular"
+  },
+  {
+    "categoria": "Familia",
+    "titulo": "Multiparentalidade: quando a lei reconhece mais de dois pais ou maes"
+  },
+  {
+    "categoria": "Eleitoral",
+    "titulo": "Direito de resposta e horario eleitoral gratuito: como funcionam"
+  },
+  {
+    "categoria": "Previdenciario",
+    "titulo": "Auxilio-acidente: em que casos e devido e como difere do auxilio-doenca"
+  }
 ]
