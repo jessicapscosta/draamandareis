@@ -25,6 +25,14 @@ const FILA_PATH = path.join(__dirname, 'fila-artigos.json');
 const CLOUDINARY_CLOUD_NAME = 'dgqxadsmt';
 const CLOUDINARY_FOLDER = 'blog-amanda-reis';
 
+// Quando a fila tiver este numero de temas (ou menos), o robo gera novos
+// temas sozinho antes de publicar, para nunca ficar sem assunto.
+const FILA_MINIMA = 4;
+// Quantos temas novos o robo gera de cada vez que a fila fica curta.
+const QTD_TEMAS_A_GERAR = 12;
+
+const CATEGORIAS_VALIDAS = ['Previdenciario', 'Trabalhista', 'Familia', 'Eleitoral'];
+
 const TEMA_VISUAL_POR_CATEGORIA = {
   Previdenciario: 'aposentadoria, previdencia social, pessoa idosa tranquila em casa',
   Trabalhista: 'ambiente de trabalho, escritorio, relacoes trabalhistas',
@@ -101,6 +109,96 @@ Regras obrigatórias:
     return JSON.parse(jsonLimpo);
   } catch (e) {
     throw new Error('Não foi possível interpretar o JSON retornado pela IA:\n' + texto);
+  }
+}
+
+// Pede pra IA sugerir uma lista de novos temas de artigos, evitando repetir
+// assuntos ja publicados ou ja na fila. Usada quando a fila esta acabando,
+// para o robo "se alimentar" sozinho sem precisar editar fila-artigos.json.
+async function gerarNovosTemas(titulosExistentes, quantidade) {
+  const listaExistentes = titulosExistentes.map((t) => `- ${t}`).join('\n');
+
+  const prompt = `Você é o editor de pauta do blog jurídico da Dra. Amanda Reis, advogada em Brasília-DF,
+que atua nas áreas: Previdenciário, Trabalhista, Família e Eleitoral.
+
+Sugira ${quantidade} NOVOS temas de artigos para o blog, distribuídos de forma equilibrada entre essas
+4 áreas (aproximadamente ${Math.ceil(quantidade / 4)} temas por área).
+
+Temas que JÁ FORAM usados no blog e NÃO podem se repetir nem ser muito parecidos:
+"""
+${listaExistentes || '(nenhum ainda)'}
+"""
+
+Regras obrigatórias:
+- Responda APENAS com um JSON válido, sem nenhum texto antes ou depois, no formato:
+{"temas": [{"categoria": "Previdenciario", "titulo": "titulo do artigo"}, ...]}
+- O campo "categoria" deve ser EXATAMENTE uma destas strings: "Previdenciario", "Trabalhista", "Familia" ou "Eleitoral" (sem acento, exatamente assim).
+- Os temas devem ser úteis e relevantes para o dia a dia de quem busca um advogado nessas áreas, com títulos específicos (não genéricos).
+- Não repita nenhum tema da lista de já usados, nem variações muito próximas dele.
+- Escreva os títulos em português correto, COM acentuação, cedilha e til (ex.: "não", "é", "situação").`;
+
+  const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-oss-120b',
+      temperature: 0.8,
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+
+  if (!resp.ok) {
+    throw new Error(`Erro na API da Groq (gerar novos temas): ${resp.status} ${await resp.text()}`);
+  }
+
+  const data = await resp.json();
+  const texto = ((data.choices || [])[0]?.message?.content || '').trim();
+  const jsonLimpo = texto.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
+
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonLimpo);
+  } catch (e) {
+    throw new Error('Não foi possível interpretar o JSON de novos temas retornado pela IA:\n' + texto);
+  }
+
+  const temas = Array.isArray(parsed.temas) ? parsed.temas : [];
+
+  // Filtra qualquer tema mal-formado ou com categoria invalida, por seguranca.
+  return temas
+    .filter((t) => t && typeof t.titulo === 'string' && CATEGORIAS_VALIDAS.includes(t.categoria))
+    .map((t) => ({ categoria: t.categoria, titulo: t.titulo.trim() }));
+}
+
+// Garante que a fila nunca fique curta: se tiver poucos temas sobrando,
+// pede novos temas pra IA e devolve a fila ja reabastecida.
+async function reabastecerFilaSeNecessario(fila, artigosExistentes) {
+  if (fila.length > FILA_MINIMA) return fila;
+
+  console.log(`Fila com ${fila.length} tema(s) restante(s) (minimo: ${FILA_MINIMA}). Gerando novos temas...`);
+
+  const titulosExistentes = [
+    ...artigosExistentes.map((a) => a.titulo),
+    ...fila.map((f) => f.titulo),
+  ];
+
+  try {
+    const novosTemas = await gerarNovosTemas(titulosExistentes, QTD_TEMAS_A_GERAR);
+    if (!novosTemas.length) {
+      console.warn('A IA nao retornou novos temas validos. A fila segue como esta.');
+      return fila;
+    }
+    console.log(`${novosTemas.length} novo(s) tema(s) gerado(s) e adicionado(s) a fila.`);
+    return [...fila, ...novosTemas];
+  } catch (erro) {
+    // Se der erro ao gerar novos temas, o robo nao trava: so publica o que
+    // ainda tiver na fila (se houver) e tenta reabastecer de novo na proxima semana.
+    console.warn('Nao foi possivel gerar novos temas automaticamente:', erro.message);
+    return fila;
   }
 }
 
@@ -268,14 +366,20 @@ async function main() {
     throw new Error('Variavel de ambiente GROQ_API_KEY nao configurada (adicione como Secret do repositorio).');
   }
 
-  const fila = JSON.parse(fs.readFileSync(FILA_PATH, 'utf8'));
+  let fila = JSON.parse(fs.readFileSync(FILA_PATH, 'utf8'));
+  const { codigo, artigos } = carregarArtigosExistentes();
+
+  // Antes de tudo, garante que a fila tenha temas suficientes. Se estiver
+  // curta (ou vazia), o robo pede novos temas pra IA e completa sozinho.
+  fila = await reabastecerFilaSeNecessario(fila, artigos);
+
   if (!fila.length) {
-    console.log('Fila de artigos vazia. Nada a publicar esta semana. Adicione novos temas em scripts/fila-artigos.json.');
+    console.log('Fila de artigos vazia e nao foi possivel gerar novos temas automaticamente. Nada a publicar esta semana.');
+    fs.writeFileSync(FILA_PATH, JSON.stringify(fila, null, 2) + '\n', 'utf8');
     return;
   }
 
   const proximo = fila.shift();
-  const { codigo, artigos } = carregarArtigosExistentes();
   const novoId = artigos.length ? Math.max(...artigos.map((a) => a.id)) + 1 : 1;
   const exemploEstilo = (artigos[0] && artigos[0].conteudo ? artigos[0].conteudo : '').slice(0, 900);
 
