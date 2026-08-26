@@ -38,7 +38,7 @@
 
   <url>
     <loc>https://draamandareis.com.br/blog/index.html</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -157,6 +157,13 @@
   <url>
     <loc>https://draamandareis.com.br/blog/artigo.html?id=19</loc>
     <lastmod>2026-08-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://draamandareis.com.br/blog/artigo.html?id=20</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
