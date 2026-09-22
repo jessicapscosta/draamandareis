@@ -8,22 +8,51 @@
  * Usa a API da Groq (variavel de ambiente GROQ_API_KEY, gratuita) para escrever
  * o conteudo do artigo, com acentuacao correta, no estilo dos artigos ja
  * publicados no site.
+ *
+ * IMAGENS DE CAPA: ficam DENTRO do proprio repositorio, na pasta blog/imagens/
+ * (o Cloudinary nao e mais usado). A cada execucao o robo:
+ *   1) confere todos os artigos e repara as capas que estiverem faltando
+ *      (link antigo do Cloudinary, campo vazio ou arquivo que sumiu da pasta):
+ *      primeiro tenta salvar a imagem do link antigo, se ainda estiver no ar;
+ *      se nao der, gera uma nova (Nano Banana -> Pexels como reserva);
+ *   2) publica o artigo da semana, ja com a capa salva em blog/imagens/.
+ *
+ * Modo so-imagens (node scripts/publicar-artigo.js --so-imagens): executa
+ * apenas o passo 1, sem publicar artigo novo.
  */
 
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const crypto = require('crypto');
+
+// O "sharp" so redimensiona/comprime as capas (1200x675, JPEG). E opcional:
+// se nao estiver instalado, as imagens sao salvas do jeito que chegaram.
+let sharp = null;
+try {
+  sharp = require('sharp');
+} catch (e) {
+  /* sem sharp: segue sem otimizar */
+}
 
 const ROOT = path.join(__dirname, '..');
 const ARTIGOS_PATH = path.join(ROOT, 'blog', 'artigos.js');
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
 const FILA_PATH = path.join(__dirname, 'fila-artigos.json');
 
-// Cloud name nao e segredo (ja aparece nas URLs publicas das imagens do site),
-// so as chaves de API que ficam nos Secrets do repositorio.
-const CLOUDINARY_CLOUD_NAME = 'dgqxadsmt';
-const CLOUDINARY_FOLDER = 'blog-amanda-reis';
+// Onde as capas ficam salvas dentro do repositorio, e como o caminho aparece
+// no campo "foto" de blog/artigos.js (relativo a raiz do site).
+const IMAGENS_DIR = path.join(ROOT, 'blog', 'imagens');
+const IMAGENS_CAMINHO_SITE = 'blog/imagens';
+
+// Tamanho final das capas (16:9, o mesmo formato dos cards do blog).
+const CAPA_LARGURA = 1200;
+const CAPA_ALTURA = 675;
+const CAPA_QUALIDADE_JPEG = 82;
+
+// Limites do reparo de imagens por execucao (evita estourar o limite gratuito
+// das APIs de imagem). O que sobrar e reparado na execucao seguinte.
+const MAX_REPAROS_POR_EXECUCAO = 8;
+const PAUSA_ENTRE_IMAGENS_MS = 4000;
 
 // Quando a fila tiver este numero de temas (ou menos), o robo gera novos
 // temas sozinho antes de publicar, para nunca ficar sem assunto.
@@ -55,12 +84,17 @@ function dataHojeBrasilia() {
   return { br: `${dd}/${mm}/${yyyy}`, iso: `${yyyy}-${mm}-${dd}` };
 }
 
-function carregarArtigosExistentes() {
-  const codigo = fs.readFileSync(ARTIGOS_PATH, 'utf8');
+// Le o texto de blog/artigos.js e devolve a lista de artigos (window.ARTIGOS).
+function analisarCodigo(codigo) {
   const sandbox = { window: {} };
   vm.createContext(sandbox);
   vm.runInContext(codigo, sandbox);
-  return { codigo, artigos: sandbox.window.ARTIGOS || [] };
+  return sandbox.window.ARTIGOS || [];
+}
+
+function carregarArtigosExistentes() {
+  const codigo = fs.readFileSync(ARTIGOS_PATH, 'utf8');
+  return { codigo, artigos: analisarCodigo(codigo) };
 }
 
 async function gerarConteudoComIA(titulo, categoria, exemploEstilo) {
@@ -202,41 +236,77 @@ async function reabastecerFilaSeNecessario(fila, artigosExistentes) {
   }
 }
 
-function assinarCloudinary(params, apiSecret) {
-  const base = Object.keys(params)
-    .sort()
-    .map((k) => `${k}=${params[k]}`)
-    .join('&');
-  return crypto.createHash('sha1').update(base + apiSecret).digest('hex');
+// ---------------------------------------------------------------------------
+//  IMAGENS DE CAPA: tudo fica salvo dentro do repositorio (blog/imagens/)
+// ---------------------------------------------------------------------------
+
+// "Revisão da vida toda: o que é" -> "revisao-da-vida-toda-o-que-e"
+function slugify(texto) {
+  const slug = String(texto)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  // Limita o tamanho do nome do arquivo sem cortar uma palavra no meio.
+  const curto = slug.length > 60 ? slug.slice(0, 60).replace(/-[^-]*$/, '') : slug;
+  return curto || 'artigo';
 }
 
-async function subirImagemParaCloudinary(base64Data, mimeType) {
-  if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-    throw new Error('CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET nao configuradas.');
+// Descobre o formato pelos primeiros bytes do arquivo (nao confia em extensao/URL).
+function detectarExtensao(buffer) {
+  if (!buffer || buffer.length < 12) return null;
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47) return 'png';
+  if (buffer[0] === 0xff && buffer[1] === 0xd8) return 'jpg';
+  if (buffer.toString('ascii', 0, 4) === 'RIFF' && buffer.toString('ascii', 8, 12) === 'WEBP') return 'webp';
+  return null;
+}
+
+// Garante que o que chegou e mesmo uma imagem (e nao uma pagina de erro em HTML,
+// por exemplo). Se nao for, lanca erro e o robo tenta a proxima fonte.
+function validarImagem(buffer) {
+  if (!detectarExtensao(buffer)) {
+    throw new Error('o arquivo recebido nao parece ser uma imagem (png/jpg/webp).');
+  }
+  return buffer;
+}
+
+// Salva a capa em blog/imagens/ (redimensionada para 1200x675 e comprimida em
+// JPEG, se o sharp estiver disponivel) e devolve o caminho para o campo "foto".
+async function salvarImagemNoRepositorio(buffer, titulo, id) {
+  fs.mkdirSync(IMAGENS_DIR, { recursive: true });
+
+  let dados = buffer;
+  let ext = detectarExtensao(buffer) || 'png';
+
+  if (sharp) {
+    try {
+      dados = await sharp(buffer)
+        .resize(CAPA_LARGURA, CAPA_ALTURA, { fit: 'cover', position: 'attention' })
+        .jpeg({ quality: CAPA_QUALIDADE_JPEG, mozjpeg: true })
+        .toBuffer();
+      ext = 'jpg';
+    } catch (erro) {
+      console.warn('Nao consegui otimizar a imagem com o sharp; salvando o original:', erro.message);
+      dados = buffer;
+    }
   }
 
-  const timestamp = Math.floor(Date.now() / 1000);
-  const assinatura = assinarCloudinary({ folder: CLOUDINARY_FOLDER, timestamp }, process.env.CLOUDINARY_API_SECRET);
+  const base = slugify(titulo);
+  let nome = `${base}.${ext}`;
+  if (fs.existsSync(path.join(IMAGENS_DIR, nome))) nome = `${base}-${id}.${ext}`;
 
-  const body = new URLSearchParams({
-    file: `data:${mimeType};base64,${base64Data}`,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    timestamp: String(timestamp),
-    folder: CLOUDINARY_FOLDER,
-    signature: assinatura,
-  });
+  fs.writeFileSync(path.join(IMAGENS_DIR, nome), dados);
+  console.log(`Imagem salva em ${IMAGENS_CAMINHO_SITE}/${nome} (${Math.round(dados.length / 1024)} KB).`);
+  return `${IMAGENS_CAMINHO_SITE}/${nome}`;
+}
 
-  const resp = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
-    method: 'POST',
-    body,
-  });
-
-  if (!resp.ok) {
-    throw new Error(`Erro ao subir imagem no Cloudinary: ${resp.status} ${await resp.text()}`);
-  }
-
-  const data = await resp.json();
-  return data.secure_url;
+// Baixa uma imagem de um link (usado para resgatar as capas do link antigo
+// do Cloudinary, caso ainda estejam no ar).
+async function baixarImagemDaUrl(url) {
+  const resp = await fetch(url, { signal: AbortSignal.timeout(30000) });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  return validarImagem(Buffer.from(await resp.arrayBuffer()));
 }
 
 async function gerarImagemComNanoBanana(titulo, categoria) {
@@ -268,10 +338,10 @@ Tema visual: ${tema}.`;
   const imagem = partes.find((p) => p.inlineData && p.inlineData.data);
   if (!imagem) throw new Error('Nano Banana nao retornou nenhuma imagem (pode ter recusado o prompt).');
 
-  return subirImagemParaCloudinary(imagem.inlineData.data, imagem.inlineData.mimeType || 'image/png');
+  return validarImagem(Buffer.from(imagem.inlineData.data, 'base64'));
 }
 
-async function buscarImagemNoPexels(categoria) {
+async function buscarImagemNoPexels(categoria, indice = 0) {
   if (!process.env.PEXELS_API_KEY) {
     throw new Error('PEXELS_API_KEY nao configurada.');
   }
@@ -287,36 +357,145 @@ async function buscarImagemNoPexels(categoria) {
   }
 
   const data = await resp.json();
-  const foto = (data.photos || [])[0];
-  if (!foto) throw new Error('Pexels nao retornou nenhuma foto para essa busca.');
+  const fotos = data.photos || [];
+  if (!fotos.length) throw new Error('Pexels nao retornou nenhuma foto para essa busca.');
+
+  // Varia a foto escolhida (pelo id do artigo) para que artigos da mesma
+  // categoria nao fiquem todos com a mesma capa.
+  const foto = fotos[indice % fotos.length];
 
   const imgResp = await fetch(foto.src.large2x || foto.src.large);
   if (!imgResp.ok) throw new Error('Nao consegui baixar a foto do Pexels.');
-  const buffer = Buffer.from(await imgResp.arrayBuffer());
-
-  return subirImagemParaCloudinary(buffer.toString('base64'), 'image/jpeg');
+  return validarImagem(Buffer.from(await imgResp.arrayBuffer()));
 }
 
 // Tenta gerar a capa com o Nano Banana; se falhar (sem chave, limite atingido,
-// prompt recusado etc), cai pro banco de imagens Pexels. Se os dois falharem,
-// o artigo publica mesmo assim, so sem foto de capa.
-async function obterImagemDeCapa(titulo, categoria) {
+// prompt recusado etc), cai pro banco de imagens Pexels. Devolve a imagem (Buffer)
+// ou null se as duas fontes falharem (quem chamou decide o que fazer).
+async function obterImagemDeCapa(titulo, categoria, id) {
   try {
-    const url = await gerarImagemComNanoBanana(titulo, categoria);
+    const imagem = await gerarImagemComNanoBanana(titulo, categoria);
     console.log('Capa gerada com Nano Banana.');
-    return url;
+    return imagem;
   } catch (erroNanoBanana) {
     console.warn('Nano Banana falhou, tentando o banco de imagens (Pexels):', erroNanoBanana.message);
   }
 
   try {
-    const url = await buscarImagemNoPexels(categoria);
+    const imagem = await buscarImagemNoPexels(categoria, id);
     console.log('Capa obtida no Pexels (reserva).');
-    return url;
+    return imagem;
   } catch (erroPexels) {
-    console.warn('Pexels tambem falhou, o artigo vai publicar sem foto de capa:', erroPexels.message);
-    return '';
+    console.warn('Pexels tambem falhou:', erroPexels.message);
+    return null;
   }
+}
+
+// ---------------------------------------------------------------------------
+//  REPARO DAS IMAGENS FALTANTES
+// ---------------------------------------------------------------------------
+
+// A capa "precisa de reparo" quando: o campo esta vazio, aponta para um link
+// externo (ex.: Cloudinary antigo) ou aponta para um arquivo que nao existe
+// mais na pasta do repositorio.
+function fotoPrecisaReparo(foto) {
+  if (!foto) return true;
+  if (/^https?:\/\//i.test(foto)) return true;
+  return !fs.existsSync(path.join(ROOT, foto));
+}
+
+function mapaDeFotos(codigo) {
+  const mapa = {};
+  analisarCodigo(codigo).forEach((a) => {
+    mapa[a.id] = a.foto;
+  });
+  return mapa;
+}
+
+// Troca o campo "foto" de UM artigo (pelo id) direto no texto de blog/artigos.js,
+// sem mexer em mais nada do arquivo. Depois confere que so essa foto mudou.
+function substituirFotoDoArtigo(codigo, id, novaFoto) {
+  const regex = new RegExp(`(\\bid:\\s*${id}\\s*,[\\s\\S]*?\\bfoto:\\s*)"[^"]*"`);
+  if (!regex.test(codigo)) {
+    throw new Error(`Nao encontrei o campo "foto" do artigo #${id} em blog/artigos.js`);
+  }
+  const novoCodigo = codigo.replace(regex, (_, prefixo) => `${prefixo}${JSON.stringify(novaFoto)}`);
+
+  const antes = mapaDeFotos(codigo);
+  const depois = mapaDeFotos(novoCodigo);
+  const idsAntes = Object.keys(antes);
+  const ok =
+    idsAntes.length === Object.keys(depois).length &&
+    idsAntes.every((k) => (String(k) === String(id) ? depois[k] === novaFoto : depois[k] === antes[k]));
+  if (!ok) {
+    throw new Error(`A troca da foto do artigo #${id} alteraria outros artigos; cancelada por seguranca.`);
+  }
+  return novoCodigo;
+}
+
+function pausar(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Procura artigos com capa faltando e conserta um por um:
+//   1) se a foto era um link antigo, tenta salvar a imagem dele (se ainda estiver no ar);
+//   2) se nao der, gera uma imagem nova (Nano Banana -> Pexels);
+//   3) salva o arquivo em blog/imagens/ e troca o campo "foto" em blog/artigos.js.
+// Se nenhuma fonte funcionar, deixa o artigo como esta e tenta de novo na proxima execucao.
+async function repararImagensFaltantes() {
+  const { codigo: codigoInicial, artigos } = carregarArtigosExistentes();
+  const pendentes = artigos.filter((a) => fotoPrecisaReparo(a.foto));
+
+  if (!pendentes.length) {
+    console.log('Todas as capas dos artigos estao salvas no repositorio. Nada a reparar.');
+    return 0;
+  }
+
+  const lote = pendentes.slice(0, MAX_REPAROS_POR_EXECUCAO);
+  console.log(`${pendentes.length} artigo(s) com capa faltando. Reparando ${lote.length} nesta execucao...`);
+
+  let codigo = codigoInicial;
+  let reparados = 0;
+  let geradas = 0;
+
+  for (const artigo of lote) {
+    console.log(`\n[Artigo #${artigo.id}] ${artigo.titulo}`);
+    try {
+      let imagem = null;
+
+      if (/^https?:\/\//i.test(artigo.foto || '')) {
+        try {
+          imagem = await baixarImagemDaUrl(artigo.foto);
+          console.log('Imagem antiga resgatada do link original.');
+        } catch (erro) {
+          console.warn(`Link antigo fora do ar (${erro.message}). Vou gerar uma capa nova.`);
+        }
+      }
+
+      if (!imagem) {
+        if (geradas > 0) await pausar(PAUSA_ENTRE_IMAGENS_MS);
+        geradas++;
+        imagem = await obterImagemDeCapa(artigo.titulo, artigo.categoria, artigo.id);
+      }
+
+      if (!imagem) {
+        console.warn('Nenhuma fonte de imagem funcionou agora. Tento de novo na proxima execucao.');
+        continue;
+      }
+
+      const caminho = await salvarImagemNoRepositorio(imagem, artigo.titulo, artigo.id);
+      codigo = substituirFotoDoArtigo(codigo, artigo.id, caminho);
+      analisarCodigo(codigo); // garante que o arquivo continua valido antes de gravar
+      fs.writeFileSync(ARTIGOS_PATH, codigo, 'utf8');
+      reparados++;
+    } catch (erro) {
+      console.warn(`Nao consegui reparar a capa do artigo #${artigo.id}:`, erro.message);
+    }
+  }
+
+  const restantes = pendentes.length - reparados;
+  console.log(`\nReparo concluido: ${reparados} capa(s) reparada(s), ${restantes} ainda pendente(s).`);
+  return reparados;
 }
 
 function inserirArtigo(codigoAtual, novoArtigo) {
@@ -362,6 +541,22 @@ function atualizarSitemap(novoId, dataIso) {
 }
 
 async function main() {
+  const soImagens = process.env.MODO_EXECUCAO === 'so-imagens' || process.argv.includes('--so-imagens');
+
+  // Passo 1 (sempre): confere as capas de todos os artigos e repara as que
+  // estiverem faltando. Se der algum problema aqui, nao trava a publicacao.
+  try {
+    await repararImagensFaltantes();
+  } catch (erro) {
+    console.warn('Nao foi possivel conferir/reparar as capas dos artigos:', erro.message);
+  }
+
+  if (soImagens) {
+    console.log('Modo "so imagens": nenhum artigo novo sera publicado nesta execucao.');
+    return;
+  }
+
+  // Passo 2: publica o artigo da semana.
   if (!process.env.GROQ_API_KEY) {
     throw new Error('Variavel de ambiente GROQ_API_KEY nao configurada (adicione como Secret do repositorio).');
   }
@@ -387,7 +582,17 @@ async function main() {
   const { br: dataBr, iso: dataIso } = dataHojeBrasilia();
   const tituloFinal = gerado.titulo || proximo.titulo;
 
-  const fotoCapa = await obterImagemDeCapa(tituloFinal, proximo.categoria);
+  // A capa e salva na pasta blog/imagens/ do repositorio. Se nao der pra obter
+  // ou salvar agora, o artigo publica sem foto e o passo 1 repara na proxima execucao.
+  let fotoCapa = '';
+  const imagemCapa = await obterImagemDeCapa(tituloFinal, proximo.categoria, novoId);
+  if (imagemCapa) {
+    try {
+      fotoCapa = await salvarImagemNoRepositorio(imagemCapa, tituloFinal, novoId);
+    } catch (erro) {
+      console.warn('Nao consegui salvar a capa no repositorio; o artigo vai sem foto por enquanto:', erro.message);
+    }
+  }
 
   const novoArtigo = {
     id: novoId,
