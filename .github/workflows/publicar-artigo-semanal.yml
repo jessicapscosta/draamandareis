@@ -4,7 +4,15 @@ on:
   schedule:
     # Toda quarta-feira as 08:00 (horario de Brasilia = UTC-3 -> 11:00 UTC)
     - cron: '0 11 * * 3'
-  workflow_dispatch: {}   # permite rodar manualmente pela aba "Actions" quando quiser
+  workflow_dispatch:   # permite rodar manualmente pela aba "Actions" quando quiser
+    inputs:
+      modo:
+        description: 'publicar = repara capas faltantes E publica o proximo artigo | so-imagens = so repara as capas, sem publicar artigo'
+        type: choice
+        default: publicar
+        options:
+          - publicar
+          - so-imagens
 
 permissions:
   contents: write
@@ -21,23 +29,31 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Gerar e inserir o artigo da semana
+      # O sharp redimensiona/comprime as capas (1200x675 JPEG) antes de salvar no
+      # repositorio. Se essa instalacao falhar, o robo segue e salva a imagem original.
+      - name: Instalar otimizador de imagens (sharp)
+        continue-on-error: true
+        run: npm install --no-save --no-package-lock --no-audit --no-fund sharp
+
+      - name: Reparar capas faltantes e publicar o artigo da semana
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          MODO_EXECUCAO: ${{ inputs.modo }}
         run: node scripts/publicar-artigo.js
 
+      # "!cancelled()" faz este passo rodar mesmo se a publicacao do artigo falhar,
+      # para as capas reparadas nao se perderem.
       - name: Commitar e publicar alteracoes
+        if: ${{ !cancelled() }}
         run: |
           git config user.name "Robo do Blog"
           git config user.email "actions@users.noreply.github.com"
-          git add blog/artigos.js sitemap.xml scripts/fila-artigos.json
+          git add blog/artigos.js blog/imagens sitemap.xml scripts/fila-artigos.json
           if git diff --cached --quiet; then
             echo "Nada novo para publicar."
           else
-            git commit -m "Publicacao automatica: novo artigo do blog"
+            git commit -m "Publicacao automatica: novo artigo do blog / capas salvas no repositorio"
             git push
           fi
